@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
-    <meta chrset="UTF-8">
-    <title>Intelix - Manufacturing Intelligence Dashboard</title>
+    <meta charset="UTF-8">
+    <title>PlantPulse — Manufacturing Intelligence Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+        /* ============================================================
+     1. DESIGN TOKENS — semua warna, font didefinisikan sekali di sini.
+        Ganti nilainya di sini = seluruh tampilan ikut berubah otomatis,
+        karena semua elemen lain memanggil var(--nama-token) ini.
+     ============================================================ */
         :root {
+            /* --- palette from user --- */
             --alice-blue: #DAE8FB;
             --thistle: #F2D2FF;
             --pearl-aqua: #75CBD1;
             --dusk-blue: #3E5BA3;
             --deep-navy: #0C0D45;
+            /* --- derived tones (kept blue/navy-dominant, professional) --- */
             --bg: #F2F6FC;
             --panel: #FFFFFF;
             --panel-2: #E9F0FA;
@@ -44,6 +51,10 @@
             --mono: 'JetBrains Mono', monospace;
         }
 
+
+        /* ============================================================
+     2. RESET DASAR — hilangkan margin/padding bawaan browser
+     ============================================================ */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -58,12 +69,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
+
+        /* ============================================================
+     3. LAYOUT UTAMA — dua kolom: sidebar (240px) + konten (sisanya)
+     ============================================================ */
         .app {
             display: grid;
             grid-template-columns: 240px 1fr;
             min-height: 100vh;
         }
 
+
+        /* ---- Sidebar kiri (menu navigasi) ---- */
         .sidebar {
             background: var(--sidebar);
             color: var(--sidebar-text);
@@ -109,7 +126,7 @@
             margin-top: 1px;
         }
 
-        .nav-selection-label {
+        .nav-section-label {
             font-size: 10.5px;
             color: var(--sidebar-text-dim);
             text-transform: uppercase;
@@ -129,7 +146,6 @@
             font-weight: 500;
             transition: background .12s, color .12s;
             position: relative;
-
         }
 
         .nav-item svg {
@@ -150,12 +166,12 @@
         }
 
         .nav-item.active::before {
-            content: "";
+            content: '';
             position: absolute;
-            top: 0;
             left: -14px;
-            right: 8px;
+            top: 8px;
             bottom: 8px;
+            width: 3px;
             background: var(--pearl-aqua);
             border-radius: 2px;
         }
@@ -205,6 +221,10 @@
             color: var(--sidebar-text-dim);
         }
 
+
+        /* ============================================================
+     4. AREA KANAN — topbar (search+profile) + konten halaman
+     ============================================================ */
         .main {
             display: flex;
             flex-direction: column;
@@ -286,11 +306,20 @@
             background: var(--critical);
         }
 
+
+        /* ---- Wadah konten yang bisa di-scroll ---- */
         .content {
             padding: 26px 30px 60px 30px;
             overflow-y: auto;
         }
 
+
+        /* ============================================================
+     5. SISTEM GANTI HALAMAN — semua .page disembunyikan (display:none),
+        lalu JS di bagian bawah nambahin class "active" ke satu halaman
+        yang lagi dipilih dari menu. Ini yang bikin app-nya kerasa
+        seperti berpindah halaman padahal cuma 1 file HTML.
+     ============================================================ */
         .page {
             display: none;
         }
@@ -335,6 +364,7 @@
             color: var(--text);
             border: 1px solid var(--border);
         }
+
 
         /* ============================================================
      6. KARTU KPI — 4 kotak angka ringkasan di halaman Overview
@@ -425,6 +455,7 @@
             font-weight: 700;
         }
 
+
         /* ---- Grid kotak status tiap equipment (PU-2101B, KO-3201, dst) ---- */
         .eq-grid {
             display: grid;
@@ -502,6 +533,7 @@
             background: var(--success);
         }
 
+
         /* ---- Baris ranking "Top Bad Actors" pakai bar chart horizontal ---- */
         .bad-actor-row {
             display: flex;
@@ -549,6 +581,7 @@
             width: 64px;
             text-align: right;
         }
+
 
         /* ============================================================
      7. TABEL — dipakai di Problem Tank, Action Tracker, RCA Report
@@ -623,6 +656,7 @@
             color: var(--text-dim);
             font-weight: 600;
         }
+
 
         /* ============================================================
      8. DETECTION PIPELINE — 4 kotak berurutan yang menggambarkan
@@ -707,9 +741,10 @@
             color: var(--critical);
         }
 
+
         /* ============================================================
      9. ROOT CAUSE EXPLORER — kolom kiri daftar alert, kolom kanan
-        detail + hasil pencarian kemiripan dari AI 
+        detail + hasil pencarian kemiripan dari AI (pura-pura)
      ============================================================ */
         .rc-layout {
             display: grid;
@@ -946,6 +981,7 @@
             background: var(--critical-soft);
             border: 1px solid var(--critical);
         }
+
 
         /* ============================================================
      10. HALAMAN RCA REPORT — meniru format dokumen resmi
@@ -1310,9 +1346,11 @@
             margin-top: 2px;
         }
 
+
         /* ============================================================
      13. ENERGY & EMISSION MONITORING — KPI + forecast chart
-       "monitor energy, production, emission" dan use case "Energy Forecasting"
+         (menjawab poin eksplisit di case book: "monitor energy,
+         production, emission" dan use case "Energy Forecasting")
      ============================================================ */
         .energy-kpi-row {
             display: grid;
@@ -1333,7 +1371,9 @@
 
 
         /* ============================================================
-     14. DATA SOURCE MAPPING 
+     14. DATA SOURCE MAPPING — visual "before vs after" yang
+         menjawab Key Question #1 (rationalize fragmented
+         dashboards into one governed data foundation)
      ============================================================ */
         .dsm-layout {
             display: grid;
@@ -1428,8 +1468,11 @@
             color: var(--sidebar-text);
         }
 
+
         /* ============================================================
-     15. ACTION GUIDANCE 
+     15. ACTION GUIDANCE — checklist langkah kerja yang expand
+         di bawah baris Action Tracker (melengkapi "Action
+         Tracking" dengan "Action Guidance" yang diminta soal)
      ============================================================ */
         .guidance-toggle {
             display: inline-flex;
@@ -1495,7 +1538,9 @@
 
 
         /* ============================================================
-     16. HUMAN OVERSIGHT / SIGN-OFF 
+     16. HUMAN OVERSIGHT / SIGN-OFF — tombol approve-reject pada
+         rekomendasi AI (menjawab poin grand theme: "consider
+         human oversight" — AI tidak langsung eksekusi sendiri)
      ============================================================ */
         .oversight-bar {
             display: flex;
@@ -1523,4 +1568,373 @@
 
         .btn.approve {
             background: var(--success);
+        }
+
+
+        /* ============================================================
+     17. SEARCH INPUT — mengganti div pura-pura jadi <input> asli
+     ============================================================ */
+        .search-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text);
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-faint);
+        }
+
+
+        /* ============================================================
+     18. DROPDOWN (notifikasi & profil di topbar)
+     ============================================================ */
+        .dropdown-wrap {
+            position: relative;
+        }
+
+        .dropdown-panel {
+            display: none;
+            position: absolute;
+            top: 44px;
+            right: 0;
+            width: 290px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 16px 40px -12px rgba(12, 13, 69, 0.25);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-panel.open {
+            display: block;
+        }
+
+        .dropdown-panel-head {
+            font-weight: 800;
+            font-size: 12.5px;
+            padding: 14px 16px 10px 16px;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .notif-item:hover {
+            background: var(--panel-2);
+        }
+
+        .notif-item.unread {
+            background: var(--accent-soft);
+        }
+
+        .notif-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .notif-icon.critical {
+            background: var(--critical);
+        }
+
+        .notif-icon.warning {
+            background: var(--warning);
+        }
+
+        .notif-icon.accent {
+            background: var(--accent);
+        }
+
+        .notif-icon.success {
+            background: var(--success);
+        }
+
+        .notif-title {
+            font-size: 12.5px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .notif-time {
+            font-size: 10.5px;
+            color: var(--text-faint);
+            margin-top: 2px;
+        }
+
+        .profile-panel {
+            width: 230px;
+        }
+
+        .profile-panel-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 16px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: var(--panel-2);
+        }
+
+        .dropdown-item.danger {
+            color: var(--critical);
+        }
+
+
+        /* ============================================================
+     19. MODAL — dipakai untuk form "+ New observation",
+         "+ Add action", dan "View full profile"
+     ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 13, 69, 0.45);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--panel);
+            border-radius: 18px;
+            width: 440px;
+            max-width: 92vw;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 60px -20px rgba(12, 13, 69, 0.4);
+        }
+
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .modal-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            color: var(--text-faint);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--panel-2);
+        }
+
+        .modal-body {
+            padding: 20px 22px;
+        }
+
+        .modal-footer {
+            padding: 16px 22px;
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 9px 12px;
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text);
+            background: var(--panel);
+        }
+
+        .form-textarea {
+            min-height: 72px;
+            resize: vertical;
+        }
+
+
+        /* ============================================================
+     20. TOAST — feedback singkat (mis. "Report exported")
+     ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--deep-navy);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 12.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s, transform .2s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+
+        /* ============================================================
+     21. GUIDANCE CHECKLIST — bikin kotak centang bisa diklik
+     ============================================================ */
+        .guidance-check-item .box {
+            cursor: pointer;
+        }
+
+
+        /* ============================================================
+     22. EQUIPMENT DETAIL — tambahan panel spesifikasi & riwayat
+     ============================================================ */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+        }
+
+        .spec-label {
+            font-size: 10.5px;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .spec-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .maint-log-item {
+            display: flex;
+            gap: 12px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .maint-log-item:last-child {
+            border-bottom: none;
+        }
+
+        .maint-log-date {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-faint);
+            width: 78px;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .maint-log-text {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .note-item {
+            background: var(--panel-2);
+            border-radius: 10px;
+            padding: 11px 13px;
+            margin-bottom: 8px;
+            font-size: 12.5px;
+        }
+
+        .note-item .who {
+            font-weight: 700;
+            font-size: 11.5px;
+            margin-bottom: 3px;
+        }
+
+        .note-item .when {
+            font-size: 10px;
+            color: var(--text-faint);
+            font-weight: 500;
+        }
+
+
+        /* ============================================================
+     23. REJECTED STATE — kartu rekomendasi AI setelah ditolak
+     ============================================================ */
+        .match-card.rejected {
+            opacity: .6;
+        }
+
+        .rejected-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--critical);
+            background: var(--critical-soft);
+            padding: 3px 10px;
+            border-radius: 20px;
         }
