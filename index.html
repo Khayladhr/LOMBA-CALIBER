@@ -3047,7 +3047,8 @@
                         </div>
                         <div
                             style="display:flex; justify-content:space-between; margin-top:8px; font-size:10.5px; color:var(--text-faint); font-family:var(--mono);">
-                            <span>Week 1</span><span>Week 26 (now)</span></div>
+                            <span>Week 1</span><span>Week 26 (now)</span>
+                        </div>
                     </div>
                     <div class="panel">
                         <div class="panel-head">
@@ -3299,3 +3300,403 @@
         </div>
     </div>
     </div>
+    <!-- ============================================================
+     MODAL & TOAST  (elemen ini di luar .app, disembunyiin
+     (display:none lewat CSS .modal-overlay) sampai dipanggil JS)
+     ============================================================ -->
+
+    <!-- Modal: form "+ New observation" (Problem Tank) -->
+    <div class="modal-overlay" id="modal-observation">
+        <div class="modal-box">
+            <div class="modal-head">
+                <div class="modal-title">New Observation</div>
+                <div class="modal-close" onclick="closeModal('modal-observation')">✕</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Equipment</label>
+                    <select class="form-select" id="obs-equipment">
+                        <option>PU-2101B — Feed Pump</option>
+                        <option>KO-3201 — Gas Compressor</option>
+                        <option>PM-4405B — Motor Pump</option>
+                        <option>HE-3301 — Heat Exchanger</option>
+                        <option>BL-5702 — Process Blower</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Symptom / observation</label>
+                    <textarea class="form-textarea" id="obs-symptom"
+                        placeholder="e.g. unusual noise from DE bearing during routine round"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Function reporting this</label>
+                    <select class="form-select" id="obs-function">
+                        <option>Operations</option>
+                        <option>Maintenance</option>
+                        <option>Reliability</option>
+                        <option>Process</option>
+                        <option>Electrical</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeModal('modal-observation')">Cancel</button>
+                <button class="btn" onclick="submitObservation()">Add to Problem Tank</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: form "+ Add action" (Action Tracker) -->
+    <div class="modal-overlay" id="modal-action">
+        <div class="modal-box">
+            <div class="modal-head">
+                <div class="modal-title">Add Action</div>
+                <div class="modal-close" onclick="closeModal('modal-action')">✕</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Action description</label>
+                    <textarea class="form-textarea" id="act-desc"
+                        placeholder="e.g. Inspect flange gasket for early-stage leak"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Equipment</label>
+                    <select class="form-select" id="act-equipment">
+                        <option>PU-2101B</option>
+                        <option>KO-3201</option>
+                        <option>PM-4405B</option>
+                        <option>HE-3301</option>
+                        <option>BL-5702</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC name</label>
+                    <input type="text" class="form-input" id="act-pic" placeholder="e.g. Budi S.">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Discipline</label>
+                    <select class="form-select" id="act-discipline">
+                        <option>ROT</option>
+                        <option>STA</option>
+                        <option>ELE</option>
+                        <option>Process</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Due</label>
+                    <input type="text" class="form-input" id="act-due" placeholder="e.g. 3 days">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeModal('modal-action')">Cancel</button>
+                <button class="btn" onclick="submitAction()">Add action</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: View full profile -->
+    <div class="modal-overlay" id="modal-profile">
+        <div class="modal-box">
+            <div class="modal-head">
+                <div class="modal-title">My Profile</div>
+                <div class="modal-close" onclick="closeModal('modal-profile')">✕</div>
+            </div>
+            <div class="modal-body">
+                <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+                    <div class="avatar"
+                        style="width:56px; height:56px; font-size:18px; background:var(--panel-2); color:var(--text); border-color:var(--border);">
+                        RA</div>
+                    <div>
+                        <div style="font-weight:800; font-size:16px;">Reza Ardiansyah</div>
+                        <div style="font-size:12.5px; color:var(--text-faint);">Reliability Engineer · Unit 3200 &amp;
+                            5700</div>
+                    </div>
+                </div>
+                <div class="spec-grid">
+                    <div>
+                        <div class="spec-label">Employee ID</div>
+                        <div class="spec-value">CAP-RE-1042</div>
+                    </div>
+                    <div>
+                        <div class="spec-label">Department</div>
+                        <div class="spec-value">Reliability Engineering</div>
+                    </div>
+                    <div>
+                        <div class="spec-label">Joined</div>
+                        <div class="spec-value">June 2021</div>
+                    </div>
+                    <div>
+                        <div class="spec-label">Email</div>
+                        <div class="spec-value">reza.a@capcx.com</div>
+                    </div>
+                </div>
+                <div class="panel-title" style="margin:20px 0 10px 0; font-size:13px;">This month</div>
+                <div class="spec-grid">
+                    <div>
+                        <div class="spec-label">RCAs reviewed</div>
+                        <div class="spec-value">7</div>
+                    </div>
+                    <div>
+                        <div class="spec-label">Actions approved</div>
+                        <div class="spec-value">12</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeModal('modal-profile')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notifikasi singkat -->
+    <div class="toast" id="toast">✓ <span id="toast-text">Done</span></div>
+
+    <script>
+        // ============================================================
+        // JAVASCRIPT
+        // ============================================================
+
+        // --- FUNGSI 1: ganti halaman aktif ---
+        // Dipanggil setiap kali menu di sidebar diklik, atau tombol
+        // "View full RCA" / "View all →" di dalam halaman diklik.
+        function showPage(id) {
+            // Langkah 1: sembunyikan SEMUA halaman (hapus class "active")
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+            // Langkah 2: tampilkan cuma 1 halaman yang id-nya cocok
+            // (id divisnya selalu "page-" + nama, misal "page-overview")
+            document.getElementById('page-' + id).classList.add('active');
+
+            // Langkah 3: perbarui tampilan menu sidebar —
+            // hapus highlight dari semua menu, lalu kasih ke menu yang aktif
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const nav = document.querySelector('.nav-item[data-page="' + id + '"]');
+            if (nav) nav.classList.add('active');
+        }
+
+        // Pasang "listener" ke semua item menu di sidebar:
+        // setiap nav-item yang punya atribut data-page, kalau diklik,
+        // akan memanggil showPage() dengan nama halaman yang sesuai.
+        document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+            item.addEventListener('click', () => showPage(item.dataset.page));
+        });
+
+
+        // --- FUNGSI 2: buka/tutup rincian formula Risk Score ---
+        // Dipakai di halaman Problem Tank. Setiap baris equipment
+        // yang risk score-nya bisa diklik akan expand baris tersembunyi
+        // di bawahnya yang berisi rincian rumus (Historical × Severity × Trend).
+        function toggleBreakdown(e, id) {
+            // stopPropagation supaya klik ini tidak "nembus" ke <tr> di atasnya
+            // (yang juga punya onclick lain, misal untuk pindah halaman)
+            e.stopPropagation();
+
+            const row = document.getElementById(id);
+            row.classList.toggle('open'); // kalau tadinya ketutup, jadi kebuka (dan sebaliknya)
+
+            // putar ikon panah (chevron) 180° saat baris terbuka,
+            // supaya kelihatan seperti "expand/collapse" pada umumnya
+            const chev = document.getElementById(id + '-chev');
+            chev.style.transform = row.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+
+        // ============================================================
+        // FUNGSI TAMBAHAN — supaya semua tombol yang tadinya "mati"
+        // sekarang beneran merespons klik. Tetap tidak ada backend/AI
+        // asli di baliknya — semua cuma manipulasi tampilan (DOM).
+        // ============================================================
+
+        // --- Search bar di topbar ---
+        // Saat user mengetik, tile equipment di halaman Overview dan
+        // baris di tabel Problem Tank yang tidak cocok akan disembunyikan.
+        function handleSearch(query) {
+            const q = query.trim().toUpperCase();
+
+            document.querySelectorAll('.eq-tile').forEach(tile => {
+                const tag = tile.querySelector('.eq-tag')?.textContent.toUpperCase() || '';
+                tile.style.display = (q === '' || tag.includes(q)) ? '' : 'none';
+            });
+
+            const ptRows = document.querySelectorAll('#problemtank-table tr');
+            ptRows.forEach(row => {
+                const cell = row.querySelector('.eq-cell');
+                if (!cell) return; // lewati baris header dan baris rincian formula (colspan)
+                const tag = cell.textContent.toUpperCase();
+                row.style.display = (q === '' || tag.includes(q)) ? '' : 'none';
+            });
+        }
+
+        // --- Dropdown notifikasi & profil ---
+        // Cuma boleh 1 dropdown terbuka dalam satu waktu, dan tertutup
+        // otomatis kalau user klik di luar area dropdown itu.
+        function toggleDropdown(id, event) {
+            event.stopPropagation();
+            const panel = document.getElementById(id);
+            const isOpen = panel.classList.contains('open');
+            document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.remove('open'));
+            if (!isOpen) panel.classList.add('open');
+        }
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.remove('open'));
+        });
+
+        function markRead(el) {
+            el.classList.remove('unread');
+            if (!document.querySelector('.notif-item.unread')) {
+                document.getElementById('notif-dot').style.display = 'none';
+            }
+        }
+
+        function openProfileModal() {
+            document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.remove('open'));
+            openModal('modal-profile');
+        }
+
+        // --- Modal generik: buka / tutup ---
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        // --- Toast singkat ---
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // --- Export report ---
+        // Tidak ada file sungguhan yang di-generate (ini mock-up),
+        // tapi memberi feedback yang meyakinkan seolah proses berjalan.
+        function exportReport() {
+            showToast('Preparing report...');
+            setTimeout(() => showToast('Report exported ✓'), 1200);
+        }
+
+        // --- "+ New observation" pada Problem Tank ---
+        function openObservationModal() {
+            openModal('modal-observation');
+        }
+
+        function submitObservation() {
+            const equipment = document.getElementById('obs-equipment').value;
+            const symptom = document.getElementById('obs-symptom').value.trim();
+            const func = document.getElementById('obs-function').value;
+            if (!symptom) {
+                alert('Please describe the symptom first.');
+                return;
+            }
+            const eqTag = equipment.split(' — ')[0];
+
+            const table = document.getElementById('problemtank-table');
+            const row = document.createElement('tr');
+            row.className = 'eq-row';
+            row.innerHTML = `
+        <td><span class="priority-badge p-medium">NEW</span></td>
+        <td class="eq-cell">${eqTag}</td>
+        <td>${symptom}</td>
+        <td class="risk-score">—</td>
+        <td>Pending review</td>
+        <td><span class="tag-pill">${func}</span></td>
+        <td><span class="link">Investigate →</span></td>
+        `;
+            // taruh di baris ke-2, tepat setelah header
+            table.insertBefore(row, table.rows[1]);
+
+            document.getElementById('obs-symptom').value = '';
+            closeModal('modal-observation');
+            showToast('Observation added to Problem Tank');
+        }
+
+        // --- "+ Add action" pada Action Tracker ---
+        function openActionModal() {
+            openModal('modal-action');
+        }
+
+        function submitAction() {
+            const desc = document.getElementById('act-desc').value.trim();
+            const equipment = document.getElementById('act-equipment').value;
+            const pic = document.getElementById('act-pic').value.trim() || 'Unassigned';
+            const discipline = document.getElementById('act-discipline').value;
+            const due = document.getElementById('act-due').value.trim() || 'TBD';
+            if (!desc) {
+                alert('Please describe the action first.');
+                return;
+            }
+            const initials = pic.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+
+            const table = document.getElementById('actiontracker-table');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+        <td>${desc}</td>
+        <td class="eq-cell">${equipment}</td>
+        <td><span class="avatar-sm">${initials}</span>${pic}</td>
+        <td><span class="tag-pill">${discipline}</span></td>
+        <td>${due}</td>
+        <td><span class="status-chip chip-open">OPEN</span></td>
+        <td><span class="tag-pill">—</span></td>
+        `;
+            table.appendChild(row);
+
+            document.getElementById('act-desc').value = '';
+            document.getElementById('act-pic').value = '';
+            document.getElementById('act-due').value = '';
+            closeModal('modal-action');
+            showToast('Action added to tracker');
+        }
+
+        // --- Reject rekomendasi AI (human oversight) ---
+        function rejectRecommendation(barId) {
+            const reason = prompt('Briefly note why this recommendation is rejected:');
+            if (reason === null) return; // user cancelled
+
+            const bar = document.getElementById(barId);
+            bar.outerHTML = `
+        <div class="oversight-bar">
+            <div class="oversight-note">
+                <span class="rejected-badge">✕ Rejected by Reza A.</span>
+                <span style="margin-left:8px;">${reason || 'No reason given'}</span>
+            </div>
+        </div>
+        `;
+            bar.closest('.match-card')?.classList.add('rejected');
+            showToast('Recommendation rejected — no action created');
+        }
+
+        // --- Centang checklist (Action Guidance) ---
+        function toggleCheckItem(el) {
+            el.classList.toggle('done');
+        }
+
+        // --- Tambah catatan baru di Equipment Detail ---
+        function addNote() {
+            const input = document.getElementById('new-note-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const list = document.getElementById('notes-list');
+            const note = document.createElement('div');
+            note.className = 'note-item';
+            note.innerHTML = `<div class="who">Reza A. <span class="when">· just now</span></div>${text}`;
+            list.insertBefore(note, list.firstChild);
+
+            input.value = '';
+            showToast('Note added');
+        }
+
+
+        function toggleGuidance(e, id) {
+            e.stopPropagation();
+            const row = document.getElementById(id);
+            row.classList.toggle('open');
+            const chev = document.getElementById(id + '-chev');
+            chev.style.transform = row.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    </script>
+</body>
+
+</html>
