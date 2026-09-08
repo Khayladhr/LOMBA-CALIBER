@@ -1938,3 +1938,464 @@
             padding: 3px 10px;
             border-radius: 20px;
         }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="app">
+        <div class="sidebar">
+            <div class="brand">
+                <div class="brand-mark"> I </div>
+                <div>
+                    <div class="brand-name"> Intelix</div>
+                    <div class="brand-sub">Manufacturing Intelligence</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-section-label">Monitor</div>
+        <div class="nav-item active" data-page="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="7" height="9" rx="1" />
+                <rect x="14" y="3" width="7" height="5" rx="1" />
+                <rect x="14" y="12" width="7" height="9" rx="1" />
+                <rect x="3" y="16" width="7" height="5" rx="1" />
+            </svg>
+            Overview
+        </div>
+        <div class="nav-item" data-page="pipeline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="5" cy="12" r="2.5" />
+                <circle cx="12" cy="6" r="2.5" />
+                <circle cx="12" cy="18" r="2.5" />
+                <circle cx="19" cy="12" r="2.5" />
+                <path d="M7.2 11 10 7.4M10 16.6 7.2 13M14 6h2.5M14 18h2.5" />
+            </svg>
+            Detection Pipeline
+        </div>
+        <div class="nav-item" data-page="problemtank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <circle cx="12" cy="17" r=".5" fill="currentColor" />
+            </svg>
+            Problem Tank
+            <span class="nav-badge">5</span>
+        </div>
+        <div class="nav-item" data-page="energy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Energy &amp; Emissions
+        </div>
+
+        <div class="nav-section-label">Foundation</div>
+        <div class="nav-item" data-page="datamap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="6" height="6" rx="1" />
+                <rect x="3" y="15" width="6" height="6" rx="1" />
+                <rect x="15" y="9" width="6" height="6" rx="1" />
+                <path d="M9 6h4a2 2 0 0 1 2 2v0M9 18h4a2 2 0 0 0 2-2v0" />
+            </svg>
+            Data Source Mapping
+        </div>
+
+        <div class="nav-section-label">Investigate</div>
+        <div class="nav-item" data-page="rootcause">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.5" y2="16.5" />
+            </svg>
+            Root Cause Explorer
+        </div>
+        <div class="nav-item" data-page="rcareport">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <path d="M14 2v6h6" />
+                <line x1="8" y1="13" x2="16" y2="13" />
+                <line x1="8" y1="17" x2="12" y2="17" />
+            </svg>
+            RCA Report
+        </div>
+
+        <div class="nav-section-label">Assets</div>
+        <div class="nav-item" data-page="equipment">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+            Equipment Detail
+        </div>
+
+        <div class="nav-section-label">Workflow</div>
+        <div class="nav-item" data-page="actions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M9 11l3 3L22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg>
+            Action Tracker
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="avatar">KA</div>
+            <div>
+                <div class="name">Khayla A.</div>
+                <div class="role">Reliability Engineer</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="plant-select"><span class="dot"></span> Olefins Complex — Unit 3200</div>
+            <div class="topbar-search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.5" y2="16.5" />
+                </svg>
+                <input type="text" id="global-search" class="search-input"
+                    placeholder="Search equipment tag, e.g. BL-5702..." oninput="handleSearch(this.value)">
+            </div>
+            <div class="topbar-right">
+                <div class="dropdown-wrap">
+                    <div class="icon-btn" onclick="toggleDropdown('notif-panel', event)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        <span class="dot" id="notif-dot"></span>
+                    </div>
+                    <div class="dropdown-panel" id="notif-panel">
+                        <div class="dropdown-panel-head">Notifications</div>
+                        <div class="notif-item unread" onclick="markRead(this)">
+                            <div class="notif-icon critical">!</div>
+                            <div>
+                                <div class="notif-title">KO-3201 entered CRITICAL range</div>
+                                <div class="notif-time">3 min ago</div>
+                            </div>
+                        </div>
+                        <div class="notif-item unread" onclick="markRead(this)">
+                            <div class="notif-icon warning">△</div>
+                            <div>
+                                <div class="notif-title">BL-5702 vibration trending up</div>
+                                <div class="notif-time">28 min ago</div>
+                            </div>
+                        </div>
+                        <div class="notif-item unread" onclick="markRead(this)">
+                            <div class="notif-icon accent">✦</div>
+                            <div>
+                                <div class="notif-title">AI matched a new similar incident for HE-3301</div>
+                                <div class="notif-time">1 hr ago</div>
+                            </div>
+                        </div>
+                        <div class="notif-item" onclick="markRead(this)">
+                            <div class="notif-icon success">✓</div>
+                            <div>
+                                <div class="notif-title">Action on PU-2101B marked done by Reza A.</div>
+                                <div class="notif-time">Yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown-wrap">
+                    <div class="avatar"
+                        style="background:var(--panel-2); color:var(--text); border-color:var(--border); cursor:pointer;"
+                        onclick="toggleDropdown('profile-panel', event)">RA</div>
+                    <div class="dropdown-panel profile-panel" id="profile-panel">
+                        <div class="profile-panel-head">
+                            <div class="avatar"
+                                style="width:44px; height:44px; font-size:15px; background:var(--panel-2); color:var(--text); border-color:var(--border);">
+                                RA</div>
+                            <div>
+                                <div class="name">Reza A.</div>
+                                <div class="role">Reliability Engineer</div>
+                            </div>
+                        </div>
+                        <div class="dropdown-item" onclick="openProfileModal()">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 21v-1a7 7 0 0 1 14 0v1" />
+                            </svg> View full profile
+                        </div>
+                        <div class="dropdown-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                            </svg> Settings
+                        </div>
+                        <div class="dropdown-item danger">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg> Log out
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- ============ OVERVIEW ============ -->
+            <div class="page active" id="page-overview">
+                <div class="page-head">
+                    <div>
+                        <div class="page-title">Executive Overview</div>
+                        <div class="page-sub">Real-time · Updated 2 min ago</div>
+                    </div>
+                    <button class="btn secondary" onclick="exportReport()">Export report</button>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Plant Availability</div>
+                        <div class="kpi-value">94.2%</div>
+                        <div class="kpi-delta down">▼ 1.3% vs last month</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">MTBF</div>
+                        <div class="kpi-value">187 <span style="font-size:14px;color:var(--text-faint)">hrs</span></div>
+                        <div class="kpi-delta down">▼ 8% vs target</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">MTTR</div>
+                        <div class="kpi-value">6.4 <span style="font-size:14px;color:var(--text-faint)">hrs</span></div>
+                        <div class="kpi-delta up">▲ 0.6 hrs</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">YTD Loss (380 incidents)</div>
+                        <div class="kpi-value critical">$67.2M</div>
+                        <div class="kpi-delta up">2,261 hrs downtime</div>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-bottom:16px;">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">Equipment Health Map</div>
+                            <div class="panel-title-sub">Unit 3200 · 5 monitored assets</div>
+                        </div><span class="link" onclick="showPage('equipment')">View all →</span>
+                    </div>
+                    <div class="eq-grid">
+                        <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tag">PU-2101B</div>
+                            <div class="eq-name">Feed Pump</div><span class="status-pill status-warning"><span
+                                    class="dot"></span>ALARM</span>
+                        </div>
+                        <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tag">KO-3201</div>
+                            <div class="eq-name">Gas Compressor</div><span class="status-pill status-critical"><span
+                                    class="dot"></span>CRITICAL</span>
+                        </div>
+                        <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tag">PM-4405B</div>
+                            <div class="eq-name">Motor Pump</div><span class="status-pill status-normal"><span
+                                    class="dot"></span>NORMAL</span>
+                        </div>
+                        <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tag">HE-3301</div>
+                            <div class="eq-name">Heat Exchanger</div><span class="status-pill status-warning"><span
+                                    class="dot"></span>WARNING</span>
+                        </div>
+                        <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tag">BL-5702</div>
+                            <div class="eq-name">Process Blower</div><span class="status-pill status-critical"><span
+                                    class="dot"></span>ALARM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Downtime by Failure Mode — YTD</div><span class="link">Details
+                                →</span>
+                        </div>
+                        <svg viewBox="0 0 480 190" width="100%" height="190">
+                            <g font-family="JetBrains Mono" font-size="10" fill="#4E5578">
+                                <rect x="30" y="30" width="60" height="130" fill="#C15757" rx="4" /><text x="60" y="175"
+                                    text-anchor="middle">Bearing</text><text x="60" y="24" text-anchor="middle"
+                                    fill="#0C0D45">612h</text>
+                                <rect x="120" y="55" width="60" height="105" fill="#C98A3B" rx="4" /><text x="150"
+                                    y="175" text-anchor="middle">Seal Leak</text><text x="150" y="49"
+                                    text-anchor="middle" fill="#0C0D45">498h</text>
+                                <rect x="210" y="70" width="60" height="90" fill="#C98A3B" rx="4" /><text x="240"
+                                    y="175" text-anchor="middle">Fouling</text><text x="240" y="64" text-anchor="middle"
+                                    fill="#0C0D45">410h</text>
+                                <rect x="300" y="90" width="60" height="70" fill="#3E5BA3" rx="4" /><text x="330"
+                                    y="175" text-anchor="middle">Vibration</text><text x="330" y="84"
+                                    text-anchor="middle" fill="#0C0D45">351h</text>
+                                <rect x="390" y="115" width="60" height="45" fill="#75CBD1" rx="4" /><text x="420"
+                                    y="175" text-anchor="middle">Other</text><text x="420" y="109" text-anchor="middle"
+                                    fill="#0C0D45">390h</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Top Bad Actors</div><span class="link">See all →</span>
+                        </div>
+                        <div class="bad-actor-row">
+                            <div class="ba-rank">1</div>
+                            <div class="ba-tag">KO-3201</div>
+                            <div class="ba-bar-wrap">
+                                <div class="ba-bar" style="width:92%"></div>
+                            </div>
+                            <div class="ba-val">$1.58M</div>
+                        </div>
+                        <div class="bad-actor-row">
+                            <div class="ba-rank">2</div>
+                            <div class="ba-tag">BL-5702</div>
+                            <div class="ba-bar-wrap">
+                                <div class="ba-bar" style="width:68%"></div>
+                            </div>
+                            <div class="ba-val">$478.8K</div>
+                        </div>
+                        <div class="bad-actor-row">
+                            <div class="ba-rank">3</div>
+                            <div class="ba-tag">HE-3301</div>
+                            <div class="ba-bar-wrap">
+                                <div class="ba-bar" style="width:41%"></div>
+                            </div>
+                            <div class="ba-val">$183.6K</div>
+                        </div>
+                        <div class="bad-actor-row">
+                            <div class="ba-rank">4</div>
+                            <div class="ba-tag">PU-2101B</div>
+                            <div class="ba-bar-wrap">
+                                <div class="ba-bar" style="width:33%"></div>
+                            </div>
+                            <div class="ba-val">$226.4K</div>
+                        </div>
+                        <div class="bad-actor-row">
+                            <div class="ba-rank">5</div>
+                            <div class="ba-tag">PM-4405B</div>
+                            <div class="ba-bar-wrap">
+                                <div class="ba-bar" style="width:18%"></div>
+                            </div>
+                            <div class="ba-val">$112.0K</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============ DETECTION PIPELINE ============ -->
+            <div class="page" id="page-pipeline">
+                <div class="page-head">
+                    <div>
+                        <div class="page-title">Detection Pipeline</div>
+                        <div class="page-sub">How PlantPulse connects 4 data layers into one early-warning chain — case:
+                            BL-5702</div>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-bottom:18px;">
+                    <div class="pipeline">
+                        <div class="pipe-connector"></div>
+                        <div class="pipe-stage active">
+                            <div class="pipe-num">1</div>
+                            <div class="pipe-label">Production Data</div>
+                            <div class="pipe-title">Hourly sensor drift</div>
+                            <div class="pipe-detail">Vibration climbs from <span class="pipe-metric">4.2 → 8.5
+                                    mm/s</span> in just 2 days. Still below trip limit, but the AI flags the
+                                rate-of-change as abnormal.</div>
+                        </div>
+                        <div class="pipe-stage active">
+                            <div class="pipe-num">2</div>
+                            <div class="pipe-label">Equipment Performance</div>
+                            <div class="pipe-title">Weekly trend confirms it</div>
+                            <div class="pipe-detail">Health status shifts <span class="pipe-metric">NORMAL →
+                                    ALARM</span> in the weekly rollup — pattern matches early-stage bearing/coupling
+                                degradation seen before.</div>
+                        </div>
+                        <div class="pipe-stage">
+                            <div class="pipe-num">3</div>
+                            <div class="pipe-label">Incident Database</div>
+                            <div class="pipe-title">If missed → incident logged</div>
+                            <div class="pipe-detail">Without early action, this becomes incident <span
+                                    class="pipe-metric">AR-2026-xxxx</span>, joining the 380 historical records the AI
+                                already learned from.</div>
+                        </div>
+                        <div class="pipe-stage">
+                            <div class="pipe-num">4</div>
+                            <div class="pipe-label">RCA Report</div>
+                            <div class="pipe-title">AI auto-pulls the fix</div>
+                            <div class="pipe-detail"><span class="ai-badge">✦ AI recommendation</span><br><br>Matches
+                                <b>RCA-5 (BL-5702)</b> at 87% confidence → root cause &amp; corrective action retrieved
+                                automatically, before a human has to search.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMPOSITE ANOMALY SCORE -->
+                <div class="panel composite-panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">Composite Anomaly Score — BL-5702</div>
+                            <div class="panel-title-sub">Multi-parameter correlation, not a single threshold</div>
+                        </div>
+                        <span class="ai-badge">✦ AI composite scoring</span>
+                    </div>
+
+                    <div class="cparam-row">
+                        <div class="cparam-name">Vibration<span class="sub">mm/s, DE bearing</span></div>
+                        <div class="cparam-bar-wrap">
+                            <div class="cparam-bar" style="width:81%; background:var(--critical);"></div>
+                            <div class="cparam-thresh" style="left:66%;"></div>
+                        </div>
+                        <div class="cparam-val">8.5 / 7.0</div>
+                        <div class="cparam-status"><span class="status-pill status-critical"><span
+                                    class="dot"></span>ABOVE LIMIT</span></div>
+                    </div>
+                    <div class="cparam-row">
+                        <div class="cparam-name">Seal Flush Flow<span class="sub">L/min</span></div>
+                        <div class="cparam-bar-wrap">
+                            <div class="cparam-bar" style="width:58%; background:var(--warning);"></div>
+                            <div class="cparam-thresh" style="left:50%;"></div>
+                        </div>
+                        <div class="cparam-val">5.1 / 6.0</div>
+                        <div class="cparam-status"><span class="status-pill status-warning"><span
+                                    class="dot"></span>TRENDING DOWN</span></div>
+                    </div>
+                    <div class="cparam-row">
+                        <div class="cparam-name">Bearing Temp<span class="sub">°C, DE side</span></div>
+                        <div class="cparam-bar-wrap">
+                            <div class="cparam-bar" style="width:44%; background:var(--success);"></div>
+                            <div class="cparam-thresh" style="left:72%;"></div>
+                        </div>
+                        <div class="cparam-val">68 / 85</div>
+                        <div class="cparam-status"><span class="status-pill status-normal"><span
+                                    class="dot"></span>NORMAL</span></div>
+                    </div>
+
+                    <div class="composite-result">
+                        <div class="composite-score-badge">
+                            <div class="composite-score-inner"><b>79</b><span>/ 100</span></div>
+                        </div>
+                        <div class="composite-explain">
+                            2 of 3 correlated parameters are deviating together — this is exactly the pattern that
+                            historically preceded coupling failure at this equipment class. A single-parameter check
+                            would only flag vibration <i>after</i> it crosses 7.0 mm/s; the composite score already
+                            flags it today because flow and vibration are moving together.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Why this matters</div>
+                    </div>
+                    <div style="font-size:13px; color:var(--text-dim); line-height:1.7; max-width:760px;">
+                        Today, these 4 layers live in separate systems — someone has to manually notice the sensor
+                        drift, remember the weekly trend, dig through the incident log, then track down the right RCA
+                        report. PlantPulse links them automatically: the moment Layer 1 shows abnormal drift, the system
+                        already knows what Layer 2–4 say about equipment like this — turning a reactive, hours-long
+                        investigation into a same-minute recommendation.
+                    </div>
+                </div>
+            </div>
