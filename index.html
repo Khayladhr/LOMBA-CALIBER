@@ -8,9 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
         /* ============================================================
-     1. DESIGN TOKENS — semua warna, font didefinisikan sekali di sini.
-        Ganti nilainya di sini = seluruh tampilan ikut berubah otomatis,
-        karena semua elemen lain memanggil var(--nama-token) ini.
+     1. DESIGN TOKENS 
      ============================================================ */
         :root {
             /* --- palette from user --- */
@@ -317,8 +315,7 @@
         /* ============================================================
      5. SISTEM GANTI HALAMAN — semua .page disembunyikan (display:none),
         lalu JS di bagian bawah nambahin class "active" ke satu halaman
-        yang lagi dipilih dari menu. Ini yang bikin app-nya kerasa
-        seperti berpindah halaman padahal cuma 1 file HTML.
+        yang lagi dipilih dari menu.
      ============================================================ */
         .page {
             display: none;
@@ -1348,9 +1345,7 @@
 
 
         /* ============================================================
-     13. ENERGY & EMISSION MONITORING — KPI + forecast chart
-         (menjawab poin eksplisit di case book: "monitor energy,
-         production, emission" dan use case "Energy Forecasting")
+     13. ENERGY & EMISSION MONITORING 
      ============================================================ */
         .energy-kpi-row {
             display: grid;
@@ -1371,9 +1366,7 @@
 
 
         /* ============================================================
-     14. DATA SOURCE MAPPING — visual "before vs after" yang
-         menjawab Key Question #1 (rationalize fragmented
-         dashboards into one governed data foundation)
+     14. DATA SOURCE MAPPING 
      ============================================================ */
         .dsm-layout {
             display: grid;
@@ -1470,9 +1463,7 @@
 
 
         /* ============================================================
-     15. ACTION GUIDANCE — checklist langkah kerja yang expand
-         di bawah baris Action Tracker (melengkapi "Action
-         Tracking" dengan "Action Guidance" yang diminta soal)
+     15. ACTION GUIDANCE 
      ============================================================ */
         .guidance-toggle {
             display: inline-flex;
@@ -1538,9 +1529,7 @@
 
 
         /* ============================================================
-     16. HUMAN OVERSIGHT / SIGN-OFF — tombol approve-reject pada
-         rekomendasi AI (menjawab poin grand theme: "consider
-         human oversight" — AI tidak langsung eksekusi sendiri)
+     16. HUMAN OVERSIGHT / SIGN-OFF 
      ============================================================ */
         .oversight-bar {
             display: flex;
@@ -3467,8 +3456,7 @@
 
     <script>
         // ============================================================
-        // JAVASCRIPT — cuma ada 2 fungsi di seluruh mockup ini.
-        // Tidak ada data asli / AI beneran, semuanya cuma tampilan.
+        // JAVASCRIPT — cuma ada 2 fungsi di seluruh mockup ini
         // ============================================================
 
         // --- FUNGSI 1: ganti halaman aktif ---
@@ -3515,12 +3503,6 @@
             chev.style.transform = row.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-
-        // ============================================================
-        // FUNGSI TAMBAHAN — supaya semua tombol yang tadinya "mati"
-        // sekarang beneran merespons klik. Tetap tidak ada backend/AI
-        // asli di baliknya — semua cuma manipulasi tampilan (DOM).
-        // ============================================================
 
         // --- Search bar di topbar ---
         // Saat user mengetik, tile equipment di halaman Overview dan
