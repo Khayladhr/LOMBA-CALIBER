@@ -2400,7 +2400,7 @@
                     <div class="page-head">
                         <div>
                             <div class="page-title">Detection Pipeline</div>
-                            <div class="page-sub">How PlantPulse connects 4 data layers into one early-warning chain —
+                            <div class="page-sub">How Intelix connects 4 data layers into one early-warning chain —
                                 case: BL-5702</div>
                         </div>
                     </div>
@@ -2505,7 +2505,7 @@
                         <div style="font-size:13px; color:var(--text-dim); line-height:1.7; max-width:760px;">
                             Today, these 4 layers live in separate systems — someone has to manually notice the sensor
                             drift, remember the weekly trend, dig through the incident log, then track down the right
-                            RCA report. PlantPulse links them automatically: the moment Layer 1 shows abnormal drift,
+                            RCA report. Intelix links them automatically: the moment Layer 1 shows abnormal drift,
                             the system already knows what Layer 2–4 say about equipment like this — turning a reactive,
                             hours-long investigation into a same-minute recommendation.
                         </div>
@@ -2819,642 +2819,643 @@
                                 <div class="dsm-col-label" style="color:var(--success);">After — 1 governed foundation
                                 </div>
                                 <div class="dsm-after-box">
-                                    <div class="title">PlantPulse Data Layer</div>
-                                    <div class="sub">Common equipment-tag key (e.g. BL-5702) links every source. One
-                                        owner per field, one source of truth per KPI.</div>
-                                    <div class="dsm-after-tags">
-                                        <span>Production</span><span>Maintenance</span><span>Energy</span><span>HSE</span><span>Reliability</span>
-                                    </div>
+                                    <div class="title">Intelix</div> Data Layer
+                                </div>
+                                <div class="sub">Common equipment-tag key (e.g. BL-5702) links every source. One
+                                    owner per field, one source of truth per KPI.</div>
+                                <div class="dsm-after-tags">
+                                    <span>Production</span><span>Maintenance</span><span>Energy</span><span>HSE</span><span>Reliability</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="panel" style="margin-top:16px;">
-                        <div class="panel-head">
-                            <div class="panel-title">Why this is a governed foundation, not just a data dump</div>
-                        </div>
-                        <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">
-                            Each field keeps a single accountable owner (e.g. Maintenance still owns work-order data),
-                            but every table is linked by the same equipment tag and refreshed on a documented schedule.
-                            New data sources are added only with a stated business justification — matching the case
-                            book's guidance that "a well-justified, high-quality data architecture is preferred over
-                            simply integrating more data."
                         </div>
                     </div>
                 </div>
 
-                <!-- ============ ROOT CAUSE EXPLORER ============ -->
-                <div class="page" id="page-rootcause">
-                    <div class="page-head">
-                        <div>
-                            <div class="page-title">Root Cause Explorer</div>
-                            <div class="page-sub">AI-assisted · retrieval over 380 historical incidents + RCA library
-                            </div>
+                <div class="panel" style="margin-top:16px;">
+                    <div class="panel-head">
+                        <div class="panel-title">Why this is a governed foundation, not just a data dump</div>
+                    </div>
+                    <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">
+                        Each field keeps a single accountable owner (e.g. Maintenance still owns work-order data),
+                        but every table is linked by the same equipment tag and refreshed on a documented schedule.
+                        New data sources are added only with a stated business justification — matching the case
+                        book's guidance that "a well-justified, high-quality data architecture is preferred over
+                        simply integrating more data."
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ ROOT CAUSE EXPLORER ============ -->
+            <div class="page" id="page-rootcause">
+                <div class="page-head">
+                    <div>
+                        <div class="page-title">Root Cause Explorer</div>
+                        <div class="page-sub">AI-assisted · retrieval over 380 historical incidents + RCA library
                         </div>
                     </div>
-                    <div class="rc-layout">
-                        <div>
-                            <div class="panel-title" style="margin-bottom:12px;">Active alerts</div>
-                            <div class="alert-list-item selected">
-                                <div class="ali-top"><span class="eq-cell">BL-5702</span><span
-                                        class="priority-badge p-high">HIGH</span></div>
-                                <div class="ali-desc">Vibration jumped 4.2 → 8.5 mm/s over 2 days. No recent maintenance
-                                    logged.</div>
-                            </div>
-                            <div class="alert-list-item">
-                                <div class="ali-top"><span class="eq-cell">KO-3201</span><span
-                                        class="priority-badge p-critical">CRITICAL</span></div>
-                                <div class="ali-desc">DE bearing vibration trending up, +34% in 5 days.</div>
-                            </div>
-                            <div class="alert-list-item">
-                                <div class="ali-top"><span class="eq-cell">HE-3301</span><span
-                                        class="priority-badge p-medium">MEDIUM</span></div>
-                                <div class="ali-desc">Fouling factor increasing, duty loss observed.</div>
-                            </div>
+                </div>
+                <div class="rc-layout">
+                    <div>
+                        <div class="panel-title" style="margin-bottom:12px;">Active alerts</div>
+                        <div class="alert-list-item selected">
+                            <div class="ali-top"><span class="eq-cell">BL-5702</span><span
+                                    class="priority-badge p-high">HIGH</span></div>
+                            <div class="ali-desc">Vibration jumped 4.2 → 8.5 mm/s over 2 days. No recent maintenance
+                                logged.</div>
                         </div>
-                        <div>
-                            <div class="panel" style="margin-bottom:14px;">
-                                <div class="panel-head">
-                                    <div>
-                                        <div class="panel-title">Symptom pattern — BL-5702</div>
-                                        <div class="panel-title-sub">Vibration trend, last 7 days</div>
-                                    </div>
+                        <div class="alert-list-item">
+                            <div class="ali-top"><span class="eq-cell">KO-3201</span><span
+                                    class="priority-badge p-critical">CRITICAL</span></div>
+                            <div class="ali-desc">DE bearing vibration trending up, +34% in 5 days.</div>
+                        </div>
+                        <div class="alert-list-item">
+                            <div class="ali-top"><span class="eq-cell">HE-3301</span><span
+                                    class="priority-badge p-medium">MEDIUM</span></div>
+                            <div class="ali-desc">Fouling factor increasing, duty loss observed.</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="panel" style="margin-bottom:14px;">
+                            <div class="panel-head">
+                                <div>
+                                    <div class="panel-title">Symptom pattern — BL-5702</div>
+                                    <div class="panel-title-sub">Vibration trend, last 7 days</div>
                                 </div>
-                                <div class="chart-legend">
-                                    <div class="legend-item"><span class="legend-dot"
-                                            style="background:#D6373F"></span>Vibration (mm/s)</div>
-                                    <div class="legend-item"><span class="legend-dot"
-                                            style="background:#D3E0F1"></span>Alarm limit (7.0)</div>
-                                </div>
-                                <svg viewBox="0 0 600 150" width="100%" height="150">
-                                    <line x1="0" y1="55" x2="600" y2="55" stroke="#D3E0F1" stroke-dasharray="4,4" />
-                                    <text x="4" y="49" font-family="JetBrains Mono" font-size="10" fill="#8A92B0">7.0
-                                        alarm limit</text>
-                                    <polyline points="0,120 100,118 200,112 300,100 400,60 500,30 600,14" fill="none"
-                                        stroke="#D6373F" stroke-width="2.5" />
-                                    <circle cx="600" cy="14" r="4" fill="#D6373F" />
-                                    <g font-family="JetBrains Mono" font-size="10" fill="#8A92B0"><text x="0"
-                                            y="140">D-6</text><text x="290" y="140">D-3</text><text x="580"
-                                            y="140">Today</text></g>
-                                </svg>
                             </div>
-                            <div class="panel">
-                                <div class="panel-head">
-                                    <div class="panel-title">AI-retrieved similar incidents</div>
+                            <div class="chart-legend">
+                                <div class="legend-item"><span class="legend-dot"
+                                        style="background:#D6373F"></span>Vibration (mm/s)</div>
+                                <div class="legend-item"><span class="legend-dot"
+                                        style="background:#D3E0F1"></span>Alarm limit (7.0)</div>
+                            </div>
+                            <svg viewBox="0 0 600 150" width="100%" height="150">
+                                <line x1="0" y1="55" x2="600" y2="55" stroke="#D3E0F1" stroke-dasharray="4,4" />
+                                <text x="4" y="49" font-family="JetBrains Mono" font-size="10" fill="#8A92B0">7.0
+                                    alarm limit</text>
+                                <polyline points="0,120 100,118 200,112 300,100 400,60 500,30 600,14" fill="none"
+                                    stroke="#D6373F" stroke-width="2.5" />
+                                <circle cx="600" cy="14" r="4" fill="#D6373F" />
+                                <g font-family="JetBrains Mono" font-size="10" fill="#8A92B0"><text x="0"
+                                        y="140">D-6</text><text x="290" y="140">D-3</text><text x="580"
+                                        y="140">Today</text></g>
+                            </svg>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div class="panel-title">AI-retrieved similar incidents</div>
+                            </div>
+                            <div class="match-card">
+                                <div class="match-header">
+                                    <div class="confidence-ring">
+                                        <div class="confidence-ring-inner">87%</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:700; margin-bottom:3px;">RCA-5 · BL-5702 High
+                                            Vibration</div>
+                                        <div class="rca-source-tag">Source: RCA Library · Coupling misalignment
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="match-card">
-                                    <div class="match-header">
-                                        <div class="confidence-ring">
-                                            <div class="confidence-ring-inner">87%</div>
-                                        </div>
-                                        <div>
-                                            <div style="font-weight:700; margin-bottom:3px;">RCA-5 · BL-5702 High
-                                                Vibration</div>
-                                            <div class="rca-source-tag">Source: RCA Library · Coupling misalignment
-                                            </div>
-                                        </div>
+                                <div class="kv-grid">
+                                    <div>
+                                        <div class="kv-label">Root cause (4M+1E)</div>
+                                        <div class="kv-value">Machine — coupling misalignment beyond tolerance after
+                                            last shutdown</div>
                                     </div>
-                                    <div class="kv-grid">
-                                        <div>
-                                            <div class="kv-label">Root cause (4M+1E)</div>
-                                            <div class="kv-value">Machine — coupling misalignment beyond tolerance after
-                                                last shutdown</div>
-                                        </div>
-                                        <div>
-                                            <div class="kv-label">Historical downtime / loss</div>
-                                            <div class="kv-value">14.0 hrs · $478.8K</div>
-                                        </div>
-                                        <div>
-                                            <div class="kv-label">Recommended action</div>
-                                            <div class="kv-value">Laser shaft alignment check + coupling inspection
-                                                within 48 hrs</div>
-                                        </div>
-                                        <div>
-                                            <div class="kv-label">PIC discipline</div>
-                                            <div class="kv-value">Rotating Equipment (ROT)</div>
-                                        </div>
+                                    <div>
+                                        <div class="kv-label">Historical downtime / loss</div>
+                                        <div class="kv-value">14.0 hrs · $478.8K</div>
                                     </div>
+                                    <div>
+                                        <div class="kv-label">Recommended action</div>
+                                        <div class="kv-value">Laser shaft alignment check + coupling inspection
+                                            within 48 hrs</div>
+                                    </div>
+                                    <div>
+                                        <div class="kv-label">PIC discipline</div>
+                                        <div class="kv-value">Rotating Equipment (ROT)</div>
+                                    </div>
+                                </div>
 
-                                    <!-- Human oversight: AI never creates the action by itself,
+                                <!-- Human oversight: AI never creates the action by itself,
                      an engineer must approve or reject the suggestion first.
                      This directly answers the grand theme's requirement to
                      "consider human oversight" for AI recommendations. -->
-                                    <!-- id ditambahkan supaya JS bisa menemukan & mengganti tombol ini
+                                <!-- id ditambahkan supaya JS bisa menemukan & mengganti tombol ini
                      saat kartu ditolak (lihat fungsi rejectRecommendation) -->
-                                    <div class="oversight-bar" id="oversight-bar-1">
-                                        <div class="oversight-note">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2">
-                                                <path d="M20 6 9 17l-5-5" />
-                                            </svg>
-                                            Awaiting engineer sign-off before an action is created
-                                        </div>
-                                        <div style="display:flex; gap:8px;">
-                                            <button class="btn reject"
-                                                onclick="rejectRecommendation('oversight-bar-1')">Reject</button>
-                                            <button class="btn approve" onclick="showPage('actions')">Approve &amp;
-                                                create action</button>
-                                        </div>
+                                <div class="oversight-bar" id="oversight-bar-1">
+                                    <div class="oversight-note">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M20 6 9 17l-5-5" />
+                                        </svg>
+                                        Awaiting engineer sign-off before an action is created
+                                    </div>
+                                    <div style="display:flex; gap:8px;">
+                                        <button class="btn reject"
+                                            onclick="rejectRecommendation('oversight-bar-1')">Reject</button>
+                                        <button class="btn approve" onclick="showPage('actions')">Approve &amp;
+                                            create action</button>
                                     </div>
                                 </div>
-                                <div class="match-card" style="opacity:.65;">
-                                    <div class="match-header">
-                                        <div class="confidence-ring"
-                                            style="background: conic-gradient(var(--accent) 0% 54%, var(--border) 54% 100%);">
-                                            <div class="confidence-ring-inner">54%</div>
-                                        </div>
-                                        <div>
-                                            <div style="font-weight:700; margin-bottom:3px;">RCA-2 · KO-3201 High Radial
-                                                Vibration Trip</div>
-                                            <div class="rca-source-tag">Source: RCA Library · Bearing degradation</div>
-                                        </div>
+                            </div>
+                            <div class="match-card" style="opacity:.65;">
+                                <div class="match-header">
+                                    <div class="confidence-ring"
+                                        style="background: conic-gradient(var(--accent) 0% 54%, var(--border) 54% 100%);">
+                                        <div class="confidence-ring-inner">54%</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:700; margin-bottom:3px;">RCA-2 · KO-3201 High Radial
+                                            Vibration Trip</div>
+                                        <div class="rca-source-tag">Source: RCA Library · Bearing degradation</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- ============ RCA REPORT ============ -->
-                <div class="page" id="page-rcareport">
-                    <div class="rca-doc-head">
-                        <div class="rca-doc-eyebrow">RCA &amp; CAPA/PAA</div>
-                        <div class="rca-doc-title">Mechanical Seal Failure — Feed Charge Pump PU-2101B</div>
-                        <div class="rca-doc-meta">AR-2026-ARP-0117 &nbsp;·&nbsp; PU-2101B — ARP &nbsp;·&nbsp; Closed
-                        </div>
-                    </div>
-
-                    <div class="rc-two-col">
-                        <div class="panel">
-                            <div class="panel-head">
-                                <div class="panel-title">Chronology of Events</div>
-                            </div>
-                            <div class="vtimeline">
-                                <div class="vt-item">
-                                    <div class="vt-dot"></div>
-                                    <div class="vt-date">11-Mar-2026</div>
-                                    <div class="vt-text">ARP produced resin grade PR-5502 (Reactor Rate ± 13.6 T/H).
-                                        Field operator noted minor seal weep on PU-2101B during routine round.</div>
-                                </div>
-                                <div class="vt-item">
-                                    <div class="vt-dot"></div>
-                                    <div class="vt-date">12-Mar-2026 · 02:15</div>
-                                    <div class="vt-text">Seal flush low-flow alarm annunciated; visible feed seal leak
-                                        with low suction pressure. Pump auto-tripped on low discharge pressure.</div>
-                                </div>
-                                <div class="vt-item">
-                                    <div class="vt-dot"></div>
-                                    <div class="vt-date">12-Mar-2026 · 02:40</div>
-                                    <div class="vt-text">Feed section reduced; charge to reactor curtailed pending seal
-                                        repair. Rotating team mobilized.</div>
-                                </div>
-                                <div class="vt-item">
-                                    <div class="vt-dot"></div>
-                                    <div class="vt-date">12-Mar-2026 · 09:20</div>
-                                    <div class="vt-text">Seal cartridge &amp; shaft sleeve inspected — seal faces
-                                        heat-checked / worn (dry-running signature).</div>
-                                </div>
-                                <div class="vt-item">
-                                    <div class="vt-dot"></div>
-                                    <div class="vt-date">12-Mar-2026 · 20:45</div>
-                                    <div class="vt-text">New seal cartridge installed, pump commissioned, feed restored
-                                        to ± 13.6 T/H.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="panel" style="margin-bottom:16px;">
-                                <div class="panel-head">
-                                    <div class="panel-title">Root Cause</div>
-                                </div>
-                                <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">Premature
-                                    mechanical seal failure caused by intermittent dry-running: suction cavitation
-                                    during feed swings reduced NPSH and seal-flush flow dropped below the 6 L/min
-                                    minimum, with no interlock to protect the seal.</div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-head">
-                                    <div class="panel-title">AI-generated summary</div><span class="ai-badge">✦
-                                        Auto-drafted from RCA + sensor context</span>
-                                </div>
-                                <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">Same signature seen
-                                    at BL-5702 and KO-3201: slow parameter drift → missed early warning → unplanned
-                                    trip. PlantPulse now watches seal-flush flow and NPSH margin on all rotating
-                                    equipment in this pattern class.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-title" style="margin: 22px 0 12px 2px;">Downtime &amp; Closure Summary</div>
-                    <div class="summary-strip">
-                        <div class="summary-card">
-                            <div class="summary-label">Downtime</div>
-                            <div class="summary-value">18.5 h</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-label">Production Loss</div>
-                            <div class="summary-value">251.6 ton</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-label">Estimated Loss</div>
-                            <div class="summary-value">$226.44k</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-label">Pre-Risk</div>
-                            <div class="summary-value">III (200)</div>
-                        </div>
-                    </div>
-
-                    <div class="panel" style="margin-bottom:16px;">
-                        <div class="panel-head">
-                            <div class="panel-title">Preventive &amp; Risk Analysis</div>
-                            <div class="panel-title-sub">Who's responsible, and by when</div>
-                        </div>
-                        <table class="table">
-                            <tr>
-                                <th>Item</th>
-                                <th>Possible Root Cause</th>
-                                <th>Preventive Action</th>
-                                <th>Plan Date</th>
-                                <th>PIC</th>
-                                <th>Status</th>
-                            </tr>
-                            <tr>
-                                <td class="eq-cell">P2</td>
-                                <td>Suction cavitation</td>
-                                <td>Revise feed-swing SOP to cap ramp at 1 T/H per minute</td>
-                                <td>24-Apr-2026</td>
-                                <td><span class="tag-pill">ROT-01</span></td>
-                                <td><span class="status-chip chip-progress">IN PROGRESS</span></td>
-                            </tr>
-                            <tr>
-                                <td class="eq-cell">X3</td>
-                                <td>Flush system not in PM</td>
-                                <td>Add seal-flush system (Plan 11) to PU-2101B PM check-sheet</td>
-                                <td>24-Apr-2026</td>
-                                <td><span class="tag-pill">REL-05</span></td>
-                                <td><span class="status-chip chip-done">DONE</span></td>
-                            </tr>
-                            <tr>
-                                <td class="eq-cell">R1</td>
-                                <td>No loss-of-flush protection</td>
-                                <td>Install flow switch &amp; low-NPSH trip interlock in DCS</td>
-                                <td>24-May-2026</td>
-                                <td><span class="tag-pill">REL-05</span></td>
-                                <td><span class="status-chip chip-open">OPEN</span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="panel">
-                        <div class="panel-head">
-                            <div class="panel-title">PM Schedule Established</div>
-                        </div>
-                        <table class="table">
-                            <tr>
-                                <th>PM No.</th>
-                                <th>Description</th>
-                                <th>Group</th>
-                                <th>Interval</th>
-                            </tr>
-                            <tr>
-                                <td class="eq-cell">PM-1</td>
-                                <td>Weekly seal-flush flow &amp; seal-pot level check PU-2101B</td>
-                                <td><span class="tag-pill">Rotating</span></td>
-                                <td>Weekly</td>
-                            </tr>
-                            <tr>
-                                <td class="eq-cell">PM-2</td>
-                                <td>Quarterly seal condition &amp; shaft run-out inspection</td>
-                                <td><span class="tag-pill">Rotating</span></td>
-                                <td>3-monthly</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- ============ EQUIPMENT DETAIL ============ -->
-                <div class="page" id="page-equipment">
-                    <div class="page-head">
-                        <div class="eq-detail-head">
-                            <div class="eq-detail-icon">BL</div>
-                            <div>
-                                <div class="page-title">BL-5702 — Process Blower</div>
-                                <div class="page-sub">Unit 5700 · Rotating Equipment · Criticality: High</div>
-                            </div>
-                        </div>
-                        <span class="status-pill status-critical" style="font-size:12px; padding:6px 13px;"><span
-                                class="dot"></span>ALARM</span>
-                    </div>
-                    <div class="stat-strip" style="margin-bottom:20px;">
-                        <div class="stat-mini">
-                            <div class="l">Current vibration</div>
-                            <div class="v" style="color:var(--critical)">8.5 mm/s</div>
-                        </div>
-                        <div class="stat-mini">
-                            <div class="l">Baseline</div>
-                            <div class="v">4.2 mm/s</div>
-                        </div>
-                        <div class="stat-mini">
-                            <div class="l">Alarm limit</div>
-                            <div class="v">7.0 mm/s</div>
-                        </div>
-                        <div class="stat-mini">
-                            <div class="l">Last PM</div>
-                            <div class="v">62 days ago</div>
-                        </div>
-                        <div class="stat-mini">
-                            <div class="l">Operating hours</div>
-                            <div class="v">14,220 h</div>
-                        </div>
-                    </div>
-                    <div class="grid-2">
-                        <div class="panel">
-                            <div class="panel-head">
-                                <div class="panel-title">Health status timeline — last 26 weeks</div>
-                            </div>
-                            <div class="timeline">
-                                <div class="tl-seg tl-normal" style="flex:18;"></div>
-                                <div class="tl-seg tl-normal" style="flex:4;"></div>
-                                <div class="tl-seg tl-alarm" style="flex:3;"></div>
-                                <div class="tl-seg tl-trip" style="flex:1;"></div>
-                            </div>
-                            <div
-                                style="display:flex; justify-content:space-between; margin-top:8px; font-size:10.5px; color:var(--text-faint); font-family:var(--mono);">
-                                <span>Week 1</span><span>Week 26 (now)</span>
-                            </div>
-                        </div>
-                        <div class="panel">
-                            <div class="panel-head">
-                                <div class="panel-title">Linked records</div>
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:11px;">
-                                <div style="display:flex; justify-content:space-between; align-items:center;"><span
-                                        style="font-size:12.5px;">RCA-5 — High Vibration report</span><span class="link"
-                                        onclick="showPage('rcareport')">Open</span></div>
-                                <div style="display:flex; justify-content:space-between; align-items:center;"><span
-                                        style="font-size:12.5px;">Production data — hourly sensor log</span><span
-                                        class="link">Open</span></div>
-                                <div style="display:flex; justify-content:space-between; align-items:center;"><span
-                                        style="font-size:12.5px;">Equipment performance — weekly trend</span><span
-                                        class="link">Open</span></div>
-                                <div style="display:flex; justify-content:space-between; align-items:center;"><span
-                                        style="font-size:12.5px;">3 similar historical incidents</span><span
-                                        class="link" onclick="showPage('rootcause')">View in Root Cause Explorer</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Panel baru: spesifikasi teknis equipment -->
-                    <div class="panel" style="margin-bottom:16px;">
-                        <div class="panel-head">
-                            <div class="panel-title">Technical Specifications</div>
-                        </div>
-                        <div class="spec-grid">
-                            <div>
-                                <div class="spec-label">Manufacturer</div>
-                                <div class="spec-value">Sulzer Ltd.</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Model</div>
-                                <div class="spec-value">HST-4000 Centrifugal Blower</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Serial Number</div>
-                                <div class="spec-value">SLZ-2019-88214</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Installed</div>
-                                <div class="spec-value">March 2019</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Design Capacity</div>
-                                <div class="spec-value">42,000 Nm³/h</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Rated Power</div>
-                                <div class="spec-value">1,250 kW</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Coupling Type</div>
-                                <div class="spec-value">Flexible disc, single diaphragm</div>
-                            </div>
-                            <div>
-                                <div class="spec-label">Criticality Class</div>
-                                <div class="spec-value">A — High (no standby unit)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-2">
-                        <!-- Panel baru: riwayat maintenance -->
-                        <div class="panel">
-                            <div class="panel-head">
-                                <div class="panel-title">Maintenance History</div>
-                                <div class="panel-title-sub">Last 5 records</div>
-                            </div>
-                            <div class="maint-log-item">
-                                <div class="maint-log-date">12-Mar-2026</div>
-                                <div class="maint-log-text"><b>RCA-5 opened</b> — high vibration trip, coupling
-                                    misalignment found</div>
-                            </div>
-                            <div class="maint-log-item">
-                                <div class="maint-log-date">18-Jan-2026</div>
-                                <div class="maint-log-text">Routine PM-2 — bearing lubrication, no anomaly found</div>
-                            </div>
-                            <div class="maint-log-item">
-                                <div class="maint-log-date">02-Nov-2025</div>
-                                <div class="maint-log-text">Vibration probe recalibrated after sensor drift alarm</div>
-                            </div>
-                            <div class="maint-log-item">
-                                <div class="maint-log-date">14-Aug-2025</div>
-                                <div class="maint-log-text">Coupling replaced during planned turnaround</div>
-                            </div>
-                            <div class="maint-log-item">
-                                <div class="maint-log-date">30-Apr-2025</div>
-                                <div class="maint-log-text">Routine PM-1 — visual &amp; thermal inspection, normal</div>
-                            </div>
-                        </div>
-
-                        <!-- Panel baru: catatan engineer, benar-benar bisa nambah catatan baru -->
-                        <div class="panel">
-                            <div class="panel-head">
-                                <div class="panel-title">Engineer Notes</div>
-                            </div>
-                            <div id="notes-list">
-                                <div class="note-item">
-                                    <div class="who">Siti P. <span class="when">· 2 days ago</span></div>
-                                    Coupling guard was slightly loose during last inspection — tightened, but worth
-                                    checking again next round.
-                                </div>
-                                <div class="note-item">
-                                    <div class="who">Khayla A. <span class="when">· 1 week ago</span></div>
-                                    Vibration pattern looks similar to KO-3201 before its trip. Watching closely.
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:12px;">
-                                <textarea id="new-note-input" class="form-textarea"
-                                    placeholder="Add a note for other engineers..."></textarea>
-                            </div>
-                            <button class="btn secondary" onclick="addNote()">Add note</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============ ACTION TRACKER ============ -->
-                <div class="page" id="page-actions">
-                    <div class="page-head">
-                        <div>
-                            <div class="page-title">Action Tracker</div>
-                            <div class="page-sub">Follow-up actions generated from Root Cause Explorer</div>
-                        </div>
-                        <button class="btn" onclick="openActionModal()">+ Add action</button>
-                    </div>
-
-                    <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="kpi-card">
-                            <div class="kpi-label">Total Actions (Open)</div>
-                            <div class="kpi-value">5 <span style="font-size:14px;color:var(--text-faint)">of
-                                    18</span></div>
-                            <div class="kpi-target">Target: ≤ 4 overdue at any time</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-label">RCA/CAPA Closure Rate</div>
-                            <div class="kpi-value warning">68%</div>
-                            <div class="kpi-target">Target: ≥ 85% closed on time</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-label">Avg. Time to Close</div>
-                            <div class="kpi-value">11.4 <span style="font-size:14px;color:var(--text-faint)">days</span>
-                            </div>
-                            <div class="kpi-target">Target: ≤ 7 days</div>
-                        </div>
-                    </div>
-                    <div class="panel">
-                        <table class="table" id="actiontracker-table">
-                            <tr>
-                                <th>Action</th>
-                                <th>Equipment</th>
-                                <th>PIC</th>
-                                <th>Discipline</th>
-                                <th>Due</th>
-                                <th>Status</th>
-                                <th>Guidance</th>
-                            </tr>
-
-                            <tr onclick="toggleGuidance(event,'g1')">
-                                <td>Laser shaft alignment check + coupling inspection</td>
-                                <td class="eq-cell">BL-5702</td>
-                                <td><span class="avatar-sm">AN</span>Andi N.</td>
-                                <td><span class="tag-pill">ROT</span></td>
-                                <td>2 days</td>
-                                <td><span class="status-chip chip-open">OPEN</span></td>
-                                <td><span class="guidance-toggle">Steps <svg id="g1-chev" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2">
-                                            <polyline points="6 9 12 15 18 9" />
-                                        </svg></span></td>
-                            </tr>
-                            <tr class="guidance-row" id="g1">
-                                <td colspan="7">
-                                    <div class="guidance-checklist">
-                                        <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Isolate BL-5702 and confirm lock-out/tag-out
-                                                per LOTO-014</span>
-                                        </div>
-                                        <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Set up laser alignment tool on coupling hub,
-                                                reference RCA-5 tolerance table</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Record angular &amp; parallel offset, compare
-                                                against OEM spec (±0.05 mm)</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Re-align if offset exceeds spec, re-torque
-                                                coupling bolts to 45 Nm</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Re-commission, log new vibration baseline for
-                                                48 hrs monitoring</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr onclick="toggleGuidance(event,'g2')">
-                                <td>DE bearing replacement &amp; vibration re-baseline</td>
-                                <td class="eq-cell">KO-3201</td>
-                                <td><span class="avatar-sm">SP</span>Siti P.</td>
-                                <td><span class="tag-pill">ROT</span></td>
-                                <td>Today</td>
-                                <td><span class="status-chip chip-progress">IN PROGRESS</span></td>
-                                <td><span class="guidance-toggle">Steps <svg id="g2-chev" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2">
-                                            <polyline points="6 9 12 15 18 9" />
-                                        </svg></span></td>
-                            </tr>
-                            <tr class="guidance-row" id="g2">
-                                <td colspan="7">
-                                    <div class="guidance-checklist">
-                                        <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Confirm spare bearing part number against RCA-2
-                                                record</span>
-                                        </div>
-                                        <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Isolate, drain lube oil, remove DE bearing
-                                                housing cover</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Inspect shaft journal for scoring before
-                                                fitting new bearing</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Fit new bearing, refill lube oil to spec
-                                                level</span>
-                                        </div>
-                                        <div class="guidance-check-item" onclick="toggleCheckItem(this)">
-                                            <div class="box"></div><span>Run at reduced load 2 hrs, re-baseline
-                                                vibration limits</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Tube bundle cleaning, review cleaning cycle</td>
-                                <td class="eq-cell">HE-3301</td>
-                                <td><span class="avatar-sm">TW</span>Teguh W.</td>
-                                <td><span class="tag-pill">STA</span></td>
-                                <td>5 days</td>
-                                <td><span class="status-chip chip-open">OPEN</span></td>
-                                <td><span class="tag-pill">—</span></td>
-                            </tr>
-                            <tr>
-                                <td>Mechanical seal flush line inspection</td>
-                                <td class="eq-cell">PU-2101B</td>
-                                <td><span class="avatar-sm">KA</span>Khayla A.</td>
-                                <td><span class="tag-pill">ROT</span></td>
-                                <td>Completed</td>
-                                <td><span class="status-chip chip-done">DONE</span></td>
-                                <td><span class="tag-pill">—</span></td>
-                            </tr>
-                            <tr>
-                                <td>Motor winding thermal scan</td>
-                                <td class="eq-cell">PM-4405B</td>
-                                <td><span class="avatar-sm">DK</span>Dewi K.</td>
-                                <td><span class="tag-pill">ELE</span></td>
-                                <td>Completed</td>
-                                <td><span class="status-chip chip-done">DONE</span></td>
-                                <td><span class="tag-pill">—</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- ============ RCA REPORT ============ -->
+            <div class="page" id="page-rcareport">
+                <div class="rca-doc-head">
+                    <div class="rca-doc-eyebrow">RCA &amp; CAPA/PAA</div>
+                    <div class="rca-doc-title">Mechanical Seal Failure — Feed Charge Pump PU-2101B</div>
+                    <div class="rca-doc-meta">AR-2026-ARP-0117 &nbsp;·&nbsp; PU-2101B — ARP &nbsp;·&nbsp; Closed
+                    </div>
+                </div>
+
+                <div class="rc-two-col">
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Chronology of Events</div>
+                        </div>
+                        <div class="vtimeline">
+                            <div class="vt-item">
+                                <div class="vt-dot"></div>
+                                <div class="vt-date">11-Mar-2026</div>
+                                <div class="vt-text">ARP produced resin grade PR-5502 (Reactor Rate ± 13.6 T/H).
+                                    Field operator noted minor seal weep on PU-2101B during routine round.</div>
+                            </div>
+                            <div class="vt-item">
+                                <div class="vt-dot"></div>
+                                <div class="vt-date">12-Mar-2026 · 02:15</div>
+                                <div class="vt-text">Seal flush low-flow alarm annunciated; visible feed seal leak
+                                    with low suction pressure. Pump auto-tripped on low discharge pressure.</div>
+                            </div>
+                            <div class="vt-item">
+                                <div class="vt-dot"></div>
+                                <div class="vt-date">12-Mar-2026 · 02:40</div>
+                                <div class="vt-text">Feed section reduced; charge to reactor curtailed pending seal
+                                    repair. Rotating team mobilized.</div>
+                            </div>
+                            <div class="vt-item">
+                                <div class="vt-dot"></div>
+                                <div class="vt-date">12-Mar-2026 · 09:20</div>
+                                <div class="vt-text">Seal cartridge &amp; shaft sleeve inspected — seal faces
+                                    heat-checked / worn (dry-running signature).</div>
+                            </div>
+                            <div class="vt-item">
+                                <div class="vt-dot"></div>
+                                <div class="vt-date">12-Mar-2026 · 20:45</div>
+                                <div class="vt-text">New seal cartridge installed, pump commissioned, feed restored
+                                    to ± 13.6 T/H.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="panel" style="margin-bottom:16px;">
+                            <div class="panel-head">
+                                <div class="panel-title">Root Cause</div>
+                            </div>
+                            <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">Premature
+                                mechanical seal failure caused by intermittent dry-running: suction cavitation
+                                during feed swings reduced NPSH and seal-flush flow dropped below the 6 L/min
+                                minimum, with no interlock to protect the seal.</div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div class="panel-title">AI-generated summary</div><span class="ai-badge">✦
+                                    Auto-drafted from RCA + sensor context</span>
+                            </div>
+                            <div style="font-size:13px; color:var(--text-dim); line-height:1.7;">Same signature seen
+                                at BL-5702 and KO-3201: slow parameter drift → missed early warning → unplanned
+                                trip. Intelix now watches seal-flush flow and NPSH margin on all rotating
+                                equipment in this pattern class.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-title" style="margin: 22px 0 12px 2px;">Downtime &amp; Closure Summary</div>
+                <div class="summary-strip">
+                    <div class="summary-card">
+                        <div class="summary-label">Downtime</div>
+                        <div class="summary-value">18.5 h</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Production Loss</div>
+                        <div class="summary-value">251.6 ton</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Estimated Loss</div>
+                        <div class="summary-value">$226.44k</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Pre-Risk</div>
+                        <div class="summary-value">III (200)</div>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-bottom:16px;">
+                    <div class="panel-head">
+                        <div class="panel-title">Preventive &amp; Risk Analysis</div>
+                        <div class="panel-title-sub">Who's responsible, and by when</div>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <th>Item</th>
+                            <th>Possible Root Cause</th>
+                            <th>Preventive Action</th>
+                            <th>Plan Date</th>
+                            <th>PIC</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td class="eq-cell">P2</td>
+                            <td>Suction cavitation</td>
+                            <td>Revise feed-swing SOP to cap ramp at 1 T/H per minute</td>
+                            <td>24-Apr-2026</td>
+                            <td><span class="tag-pill">ROT-01</span></td>
+                            <td><span class="status-chip chip-progress">IN PROGRESS</span></td>
+                        </tr>
+                        <tr>
+                            <td class="eq-cell">X3</td>
+                            <td>Flush system not in PM</td>
+                            <td>Add seal-flush system (Plan 11) to PU-2101B PM check-sheet</td>
+                            <td>24-Apr-2026</td>
+                            <td><span class="tag-pill">REL-05</span></td>
+                            <td><span class="status-chip chip-done">DONE</span></td>
+                        </tr>
+                        <tr>
+                            <td class="eq-cell">R1</td>
+                            <td>No loss-of-flush protection</td>
+                            <td>Install flow switch &amp; low-NPSH trip interlock in DCS</td>
+                            <td>24-May-2026</td>
+                            <td><span class="tag-pill">REL-05</span></td>
+                            <td><span class="status-chip chip-open">OPEN</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">PM Schedule Established</div>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <th>PM No.</th>
+                            <th>Description</th>
+                            <th>Group</th>
+                            <th>Interval</th>
+                        </tr>
+                        <tr>
+                            <td class="eq-cell">PM-1</td>
+                            <td>Weekly seal-flush flow &amp; seal-pot level check PU-2101B</td>
+                            <td><span class="tag-pill">Rotating</span></td>
+                            <td>Weekly</td>
+                        </tr>
+                        <tr>
+                            <td class="eq-cell">PM-2</td>
+                            <td>Quarterly seal condition &amp; shaft run-out inspection</td>
+                            <td><span class="tag-pill">Rotating</span></td>
+                            <td>3-monthly</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============ EQUIPMENT DETAIL ============ -->
+            <div class="page" id="page-equipment">
+                <div class="page-head">
+                    <div class="eq-detail-head">
+                        <div class="eq-detail-icon">BL</div>
+                        <div>
+                            <div class="page-title">BL-5702 — Process Blower</div>
+                            <div class="page-sub">Unit 5700 · Rotating Equipment · Criticality: High</div>
+                        </div>
+                    </div>
+                    <span class="status-pill status-critical" style="font-size:12px; padding:6px 13px;"><span
+                            class="dot"></span>ALARM</span>
+                </div>
+                <div class="stat-strip" style="margin-bottom:20px;">
+                    <div class="stat-mini">
+                        <div class="l">Current vibration</div>
+                        <div class="v" style="color:var(--critical)">8.5 mm/s</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="l">Baseline</div>
+                        <div class="v">4.2 mm/s</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="l">Alarm limit</div>
+                        <div class="v">7.0 mm/s</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="l">Last PM</div>
+                        <div class="v">62 days ago</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="l">Operating hours</div>
+                        <div class="v">14,220 h</div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Health status timeline — last 26 weeks</div>
+                        </div>
+                        <div class="timeline">
+                            <div class="tl-seg tl-normal" style="flex:18;"></div>
+                            <div class="tl-seg tl-normal" style="flex:4;"></div>
+                            <div class="tl-seg tl-alarm" style="flex:3;"></div>
+                            <div class="tl-seg tl-trip" style="flex:1;"></div>
+                        </div>
+                        <div
+                            style="display:flex; justify-content:space-between; margin-top:8px; font-size:10.5px; color:var(--text-faint); font-family:var(--mono);">
+                            <span>Week 1</span><span>Week 26 (now)</span>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Linked records</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:11px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;"><span
+                                    style="font-size:12.5px;">RCA-5 — High Vibration report</span><span class="link"
+                                    onclick="showPage('rcareport')">Open</span></div>
+                            <div style="display:flex; justify-content:space-between; align-items:center;"><span
+                                    style="font-size:12.5px;">Production data — hourly sensor log</span><span
+                                    class="link">Open</span></div>
+                            <div style="display:flex; justify-content:space-between; align-items:center;"><span
+                                    style="font-size:12.5px;">Equipment performance — weekly trend</span><span
+                                    class="link">Open</span></div>
+                            <div style="display:flex; justify-content:space-between; align-items:center;"><span
+                                    style="font-size:12.5px;">3 similar historical incidents</span><span class="link"
+                                    onclick="showPage('rootcause')">View in Root Cause Explorer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel baru: spesifikasi teknis equipment -->
+                <div class="panel" style="margin-bottom:16px;">
+                    <div class="panel-head">
+                        <div class="panel-title">Technical Specifications</div>
+                    </div>
+                    <div class="spec-grid">
+                        <div>
+                            <div class="spec-label">Manufacturer</div>
+                            <div class="spec-value">Sulzer Ltd.</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Model</div>
+                            <div class="spec-value">HST-4000 Centrifugal Blower</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Serial Number</div>
+                            <div class="spec-value">SLZ-2019-88214</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Installed</div>
+                            <div class="spec-value">March 2019</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Design Capacity</div>
+                            <div class="spec-value">42,000 Nm³/h</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Rated Power</div>
+                            <div class="spec-value">1,250 kW</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Coupling Type</div>
+                            <div class="spec-value">Flexible disc, single diaphragm</div>
+                        </div>
+                        <div>
+                            <div class="spec-label">Criticality Class</div>
+                            <div class="spec-value">A — High (no standby unit)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Panel baru: riwayat maintenance -->
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Maintenance History</div>
+                            <div class="panel-title-sub">Last 5 records</div>
+                        </div>
+                        <div class="maint-log-item">
+                            <div class="maint-log-date">12-Mar-2026</div>
+                            <div class="maint-log-text"><b>RCA-5 opened</b> — high vibration trip, coupling
+                                misalignment found</div>
+                        </div>
+                        <div class="maint-log-item">
+                            <div class="maint-log-date">18-Jan-2026</div>
+                            <div class="maint-log-text">Routine PM-2 — bearing lubrication, no anomaly found</div>
+                        </div>
+                        <div class="maint-log-item">
+                            <div class="maint-log-date">02-Nov-2025</div>
+                            <div class="maint-log-text">Vibration probe recalibrated after sensor drift alarm</div>
+                        </div>
+                        <div class="maint-log-item">
+                            <div class="maint-log-date">14-Aug-2025</div>
+                            <div class="maint-log-text">Coupling replaced during planned turnaround</div>
+                        </div>
+                        <div class="maint-log-item">
+                            <div class="maint-log-date">30-Apr-2025</div>
+                            <div class="maint-log-text">Routine PM-1 — visual &amp; thermal inspection, normal</div>
+                        </div>
+                    </div>
+
+                    <!-- Panel baru: catatan engineer, benar-benar bisa nambah catatan baru -->
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Engineer Notes</div>
+                        </div>
+                        <div id="notes-list">
+                            <div class="note-item">
+                                <div class="who">Siti P. <span class="when">· 2 days ago</span></div>
+                                Coupling guard was slightly loose during last inspection — tightened, but worth
+                                checking again next round.
+                            </div>
+                            <div class="note-item">
+                                <div class="who">Khayla A. <span class="when">· 1 week ago</span></div>
+                                Vibration pattern looks similar to KO-3201 before its trip. Watching closely.
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:12px;">
+                            <textarea id="new-note-input" class="form-textarea"
+                                placeholder="Add a note for other engineers..."></textarea>
+                        </div>
+                        <button class="btn secondary" onclick="addNote()">Add note</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ ACTION TRACKER ============ -->
+            <div class="page" id="page-actions">
+                <div class="page-head">
+                    <div>
+                        <div class="page-title">Action Tracker</div>
+                        <div class="page-sub">Follow-up actions generated from Root Cause Explorer</div>
+                    </div>
+                    <button class="btn" onclick="openActionModal()">+ Add action</button>
+                </div>
+
+                <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Actions (Open)</div>
+                        <div class="kpi-value">5 <span style="font-size:14px;color:var(--text-faint)">of
+                                18</span></div>
+                        <div class="kpi-target">Target: ≤ 4 overdue at any time</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">RCA/CAPA Closure Rate</div>
+                        <div class="kpi-value warning">68%</div>
+                        <div class="kpi-target">Target: ≥ 85% closed on time</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Avg. Time to Close</div>
+                        <div class="kpi-value">11.4 <span style="font-size:14px;color:var(--text-faint)">days</span>
+                        </div>
+                        <div class="kpi-target">Target: ≤ 7 days</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <table class="table" id="actiontracker-table">
+                        <tr>
+                            <th>Action</th>
+                            <th>Equipment</th>
+                            <th>PIC</th>
+                            <th>Discipline</th>
+                            <th>Due</th>
+                            <th>Status</th>
+                            <th>Guidance</th>
+                        </tr>
+
+                        <tr onclick="toggleGuidance(event,'g1')">
+                            <td>Laser shaft alignment check + coupling inspection</td>
+                            <td class="eq-cell">BL-5702</td>
+                            <td><span class="avatar-sm">AN</span>Andi N.</td>
+                            <td><span class="tag-pill">ROT</span></td>
+                            <td>2 days</td>
+                            <td><span class="status-chip chip-open">OPEN</span></td>
+                            <td><span class="guidance-toggle">Steps <svg id="g1-chev" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg></span></td>
+                        </tr>
+                        <tr class="guidance-row" id="g1">
+                            <td colspan="7">
+                                <div class="guidance-checklist">
+                                    <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Isolate BL-5702 and confirm lock-out/tag-out
+                                            per LOTO-014</span>
+                                    </div>
+                                    <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Set up laser alignment tool on coupling hub,
+                                            reference RCA-5 tolerance table</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Record angular &amp; parallel offset, compare
+                                            against OEM spec (±0.05 mm)</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Re-align if offset exceeds spec, re-torque
+                                            coupling bolts to 45 Nm</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Re-commission, log new vibration baseline for
+                                            48 hrs monitoring</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr onclick="toggleGuidance(event,'g2')">
+                            <td>DE bearing replacement &amp; vibration re-baseline</td>
+                            <td class="eq-cell">KO-3201</td>
+                            <td><span class="avatar-sm">SP</span>Siti P.</td>
+                            <td><span class="tag-pill">ROT</span></td>
+                            <td>Today</td>
+                            <td><span class="status-chip chip-progress">IN PROGRESS</span></td>
+                            <td><span class="guidance-toggle">Steps <svg id="g2-chev" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg></span></td>
+                        </tr>
+                        <tr class="guidance-row" id="g2">
+                            <td colspan="7">
+                                <div class="guidance-checklist">
+                                    <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Confirm spare bearing part number against RCA-2
+                                            record</span>
+                                    </div>
+                                    <div class="guidance-check-item done" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Isolate, drain lube oil, remove DE bearing
+                                            housing cover</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Inspect shaft journal for scoring before
+                                            fitting new bearing</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Fit new bearing, refill lube oil to spec
+                                            level</span>
+                                    </div>
+                                    <div class="guidance-check-item" onclick="toggleCheckItem(this)">
+                                        <div class="box"></div><span>Run at reduced load 2 hrs, re-baseline
+                                            vibration limits</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Tube bundle cleaning, review cleaning cycle</td>
+                            <td class="eq-cell">HE-3301</td>
+                            <td><span class="avatar-sm">TW</span>Teguh W.</td>
+                            <td><span class="tag-pill">STA</span></td>
+                            <td>5 days</td>
+                            <td><span class="status-chip chip-open">OPEN</span></td>
+                            <td><span class="tag-pill">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Mechanical seal flush line inspection</td>
+                            <td class="eq-cell">PU-2101B</td>
+                            <td><span class="avatar-sm">KA</span>Khayla A.</td>
+                            <td><span class="tag-pill">ROT</span></td>
+                            <td>Completed</td>
+                            <td><span class="status-chip chip-done">DONE</span></td>
+                            <td><span class="tag-pill">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Motor winding thermal scan</td>
+                            <td class="eq-cell">PM-4405B</td>
+                            <td><span class="avatar-sm">DK</span>Dewi K.</td>
+                            <td><span class="tag-pill">ELE</span></td>
+                            <td>Completed</td>
+                            <td><span class="status-chip chip-done">DONE</span></td>
+                            <td><span class="tag-pill">—</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
+    </div>
     </div>
 
     <!-- ============================================================
