@@ -3611,10 +3611,10 @@
     <script>
         // --- Jam & tanggal real-time di topbar ---
         // Diupdate tiap detik pakai setInterval, dengan zona waktu
-        // Asia/Jakarta dan format bahasa Indonesia.
+        // Asia/Jakarta dan format bahasa Inggris (Wednesday, 9 September 2026)
         function updateClock() {
             const now = new Date();
-            const dateStr = now.toLocaleDateString('id-ID', {
+            const dateStr = now.toLocaleDateString('en-US', { // Ubah id-ID menjadi en-US
                 weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
                 timeZone: 'Asia/Jakarta'
             });
@@ -3627,8 +3627,6 @@
         }
         updateClock();
         setInterval(updateClock, 1000);
-
-
         // ============================================================
         // JAVASCRIPT — cuma ada 2 fungsi di seluruh mockup ini
         // ============================================================
