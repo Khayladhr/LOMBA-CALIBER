@@ -32,10 +32,10 @@
             --accent-deep: #2C4179;
             --success: #3E9B90;
             --success-soft: #E2F3F1;
-            --warning: #C98A3B;
-            --warning-soft: #FBEFE0;
-            --critical: #C15757;
-            --critical-soft: #F8E6E6;
+            --warning: #E08A1F;
+            --warning-soft: #FCEBD3;
+            --critical: #D6373F;
+            --critical-soft: #FBE0E1;
             --ai-tint: var(--thistle);
             --ai-text: #7A4C99;
             --ai-soft: #F7ECFC;
@@ -259,6 +259,36 @@
             background: var(--success);
         }
 
+        .live-clock {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dim);
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            padding: 7px 13px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .live-clock svg {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .clock-sep {
+            color: var(--text-faint);
+        }
+
+        #clock-time {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+
         .topbar-search {
             flex: 1;
             max-width: 420px;
@@ -366,9 +396,46 @@
         /* ============================================================
      6. KARTU KPI — 4 kotak angka ringkasan di halaman Overview
      ============================================================ */
+        .dept-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .dept-filter-label {
+            font-size: 11.5px;
+            color: var(--text-faint);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .dept-chip {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        .dept-chip:hover {
+            border-color: var(--accent);
+        }
+
+        .dept-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+
         .kpi-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 14px;
             margin-bottom: 22px;
         }
@@ -397,6 +464,23 @@
 
         .kpi-value.critical {
             color: var(--critical);
+        }
+
+        .kpi-value.warning {
+            color: var(--warning);
+        }
+
+        .kpi-value.success {
+            color: var(--success);
+        }
+
+        .kpi-target {
+            font-size: 10.5px;
+            color: var(--text-faint);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border);
+            font-weight: 600;
         }
 
         .kpi-delta {
@@ -1349,7 +1433,7 @@
      ============================================================ */
         .energy-kpi-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-bottom: 16px;
         }
@@ -1936,7 +2020,7 @@
     <div class="app">
         <div class="sidebar">
             <div class="brand">
-                <div class="brand-mark">P</div>
+                <div class="brand-mark">I</div>
                 <div>
                     <div class="brand-name">Intelix</div>
                     <div class="brand-sub">Manufacturing Intelligence</div>
@@ -1977,7 +2061,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                     <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
-                Energy &amp; Emissions
+                Energy &amp; Production
             </div>
 
             <div class="nav-section-label">Foundation</div>
@@ -2040,6 +2124,15 @@
         <div class="main">
             <div class="topbar">
                 <div class="plant-select"><span class="dot"></span> Olefins Complex — Unit 3200</div>
+                <div class="live-clock" id="live-clock">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="9" />
+                        <polyline points="12 7 12 12 15 15" />
+                    </svg>
+                    <span id="clock-date">—</span>
+                    <span class="clock-sep">·</span>
+                    <span id="clock-time">—</span>
+                </div>
                 <div class="topbar-search">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="7" />
@@ -2084,7 +2177,7 @@
                             <div class="notif-item" onclick="markRead(this)">
                                 <div class="notif-icon success">✓</div>
                                 <div>
-                                    <div class="notif-title">Action on PU-2101B marked done by Reza A.</div>
+                                    <div class="notif-title">Action on PU-2101B marked done by Khayla A.</div>
                                     <div class="notif-time">Yesterday</div>
                                 </div>
                             </div>
@@ -2094,14 +2187,14 @@
                     <div class="dropdown-wrap">
                         <div class="avatar"
                             style="background:var(--panel-2); color:var(--text); border-color:var(--border); cursor:pointer;"
-                            onclick="toggleDropdown('profile-panel', event)">RA</div>
+                            onclick="toggleDropdown('profile-panel', event)">KA</div>
                         <div class="dropdown-panel profile-panel" id="profile-panel">
                             <div class="profile-panel-head">
                                 <div class="avatar"
                                     style="width:44px; height:44px; font-size:15px; background:var(--panel-2); color:var(--text); border-color:var(--border);">
-                                    RA</div>
+                                    KA</div>
                                 <div>
-                                    <div class="name">Reza A.</div>
+                                    <div class="name">Khayla A.</div>
                                     <div class="role">Reliability Engineer</div>
                                 </div>
                             </div>
@@ -2149,23 +2242,33 @@
                             <div class="kpi-label">Plant Availability</div>
                             <div class="kpi-value">94.2%</div>
                             <div class="kpi-delta down">▼ 1.3% vs last month</div>
+                            <div class="kpi-target">Target: ≥ 96.0%</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">MTBF</div>
                             <div class="kpi-value">187 <span style="font-size:14px;color:var(--text-faint)">hrs</span>
                             </div>
                             <div class="kpi-delta down">▼ 8% vs target</div>
+                            <div class="kpi-target">Target: ≥ 220 hrs</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">MTTR</div>
                             <div class="kpi-value">6.4 <span style="font-size:14px;color:var(--text-faint)">hrs</span>
                             </div>
                             <div class="kpi-delta up">▲ 0.6 hrs</div>
+                            <div class="kpi-target">Target: ≤ 5.5 hrs</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">PM Compliance</div>
+                            <div class="kpi-value warning">91.4%</div>
+                            <div class="kpi-delta up">▲ 2.1% vs last month</div>
+                            <div class="kpi-target">Target: ≥ 95.0%</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">YTD Loss (380 incidents)</div>
                             <div class="kpi-value critical">$67.2M</div>
                             <div class="kpi-delta up">2,261 hrs downtime</div>
+                            <div class="kpi-target">Limit: ≤ $50.0M / yr</div>
                         </div>
                     </div>
 
@@ -2173,31 +2276,44 @@
                         <div class="panel-head">
                             <div>
                                 <div class="panel-title">Equipment Health Map</div>
-                                <div class="panel-title-sub">Unit 3200 · 5 monitored assets</div>
+                                <div class="panel-title-sub">Unit 3200 · 5 monitored assets · filter by owning
+                                    function</div>
                             </div><span class="link" onclick="showPage('equipment')">View all →</span>
                         </div>
+                        <div class="dept-filter-row">
+                            <span class="dept-filter-label">Owning function:</span>
+                            <div class="dept-chip active" data-dept="all" onclick="filterByDept('all', this)">All</div>
+                            <div class="dept-chip" data-dept="Production" onclick="filterByDept('Production', this)">
+                                Production</div>
+                            <div class="dept-chip" data-dept="Maintenance" onclick="filterByDept('Maintenance', this)">
+                                Maintenance</div>
+                            <div class="dept-chip" data-dept="Reliability" onclick="filterByDept('Reliability', this)">
+                                Reliability</div>
+                            <div class="dept-chip" data-dept="Electrical" onclick="filterByDept('Electrical', this)">
+                                Electrical</div>
+                        </div>
                         <div class="eq-grid">
-                            <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tile" data-dept="Maintenance" onclick="showPage('equipment')">
                                 <div class="eq-tag">PU-2101B</div>
                                 <div class="eq-name">Feed Pump</div><span class="status-pill status-warning"><span
                                         class="dot"></span>ALARM</span>
                             </div>
-                            <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tile" data-dept="Reliability" onclick="showPage('equipment')">
                                 <div class="eq-tag">KO-3201</div>
                                 <div class="eq-name">Gas Compressor</div><span class="status-pill status-critical"><span
                                         class="dot"></span>CRITICAL</span>
                             </div>
-                            <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tile" data-dept="Electrical" onclick="showPage('equipment')">
                                 <div class="eq-tag">PM-4405B</div>
                                 <div class="eq-name">Motor Pump</div><span class="status-pill status-normal"><span
                                         class="dot"></span>NORMAL</span>
                             </div>
-                            <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tile" data-dept="Production" onclick="showPage('equipment')">
                                 <div class="eq-tag">HE-3301</div>
                                 <div class="eq-name">Heat Exchanger</div><span class="status-pill status-warning"><span
                                         class="dot"></span>WARNING</span>
                             </div>
-                            <div class="eq-tile" onclick="showPage('equipment')">
+                            <div class="eq-tile" data-dept="Maintenance" onclick="showPage('equipment')">
                                 <div class="eq-tag">BL-5702</div>
                                 <div class="eq-name">Process Blower</div><span class="status-pill status-critical"><span
                                         class="dot"></span>ALARM</span>
@@ -2213,13 +2329,13 @@
                             </div>
                             <svg viewBox="0 0 480 190" width="100%" height="190">
                                 <g font-family="JetBrains Mono" font-size="10" fill="#4E5578">
-                                    <rect x="30" y="30" width="60" height="130" fill="#C15757" rx="4" /><text x="60"
+                                    <rect x="30" y="30" width="60" height="130" fill="#D6373F" rx="4" /><text x="60"
                                         y="175" text-anchor="middle">Bearing</text><text x="60" y="24"
                                         text-anchor="middle" fill="#0C0D45">612h</text>
-                                    <rect x="120" y="55" width="60" height="105" fill="#C98A3B" rx="4" /><text x="150"
+                                    <rect x="120" y="55" width="60" height="105" fill="#E08A1F" rx="4" /><text x="150"
                                         y="175" text-anchor="middle">Seal Leak</text><text x="150" y="49"
                                         text-anchor="middle" fill="#0C0D45">498h</text>
-                                    <rect x="210" y="70" width="60" height="90" fill="#C98A3B" rx="4" /><text x="240"
+                                    <rect x="210" y="70" width="60" height="90" fill="#E08A1F" rx="4" /><text x="240"
                                         y="175" text-anchor="middle">Fouling</text><text x="240" y="64"
                                         text-anchor="middle" fill="#0C0D45">410h</text>
                                     <rect x="300" y="90" width="60" height="70" fill="#3E5BA3" rx="4" /><text x="330"
@@ -2530,9 +2646,9 @@
                 <div class="page" id="page-energy">
                     <div class="page-head">
                         <div>
-                            <div class="page-title">Energy &amp; Emission Monitoring</div>
-                            <div class="page-sub">Unit 3200 · required per case book: energy, production, emission in
-                                one view</div>
+                            <div class="page-title">Energy &amp; Production Monitoring</div>
+                            <div class="page-sub">Unit 3200 · per case book: energy, production, emission in one view
+                            </div>
                         </div>
                     </div>
 
@@ -2542,23 +2658,41 @@
                             <div class="kpi-value">18,420 <span
                                     style="font-size:14px;color:var(--text-faint)">MWh</span></div>
                             <div class="kpi-delta up">▲ 4.1% vs target</div>
+                            <div class="kpi-target">Target: ≤ 17,700 MWh</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Specific Energy Use</div>
                             <div class="kpi-value">3.42 <span
                                     style="font-size:14px;color:var(--text-faint)">kWh/ton</span></div>
                             <div class="kpi-delta up">▲ 0.18 vs baseline</div>
+                            <div class="kpi-target">Target: ≤ 3.20 kWh/ton</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">CO₂ Emission (YTD)</div>
                             <div class="kpi-value">9,860 <span
                                     style="font-size:14px;color:var(--text-faint)">tCO₂e</span></div>
                             <div class="kpi-delta down">▼ 2.3% vs last year</div>
+                            <div class="kpi-target">Permit limit: 11,500 tCO₂e</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Emission vs Permit Limit</div>
                             <div class="kpi-value success">86%</div>
                             <div class="kpi-delta down">▼ within limit</div>
+                            <div class="kpi-target">Alert threshold: ≥ 95%</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Production Output (YTD)</div>
+                            <div class="kpi-value">142,600 <span
+                                    style="font-size:14px;color:var(--text-faint)">ton</span></div>
+                            <div class="kpi-delta down">▼ 3.4% vs plan</div>
+                            <div class="kpi-target">Target: 147,600 ton</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Production Loss (YTD)</div>
+                            <div class="kpi-value critical">3,180 <span
+                                    style="font-size:14px;color:var(--text-faint)">ton</span></div>
+                            <div class="kpi-delta up">Mostly from unplanned downtime</div>
+                            <div class="kpi-target">Limit: ≤ 2,000 ton / yr</div>
                         </div>
                     </div>
 
@@ -2749,7 +2883,7 @@
                                 </div>
                                 <div class="chart-legend">
                                     <div class="legend-item"><span class="legend-dot"
-                                            style="background:#C15757"></span>Vibration (mm/s)</div>
+                                            style="background:#D6373F"></span>Vibration (mm/s)</div>
                                     <div class="legend-item"><span class="legend-dot"
                                             style="background:#D3E0F1"></span>Alarm limit (7.0)</div>
                                 </div>
@@ -2758,8 +2892,8 @@
                                     <text x="4" y="49" font-family="JetBrains Mono" font-size="10" fill="#8A92B0">7.0
                                         alarm limit</text>
                                     <polyline points="0,120 100,118 200,112 300,100 400,60 500,30 600,14" fill="none"
-                                        stroke="#C15757" stroke-width="2.5" />
-                                    <circle cx="600" cy="14" r="4" fill="#C15757" />
+                                        stroke="#D6373F" stroke-width="2.5" />
+                                    <circle cx="600" cy="14" r="4" fill="#D6373F" />
                                     <g font-family="JetBrains Mono" font-size="10" fill="#8A92B0"><text x="0"
                                             y="140">D-6</text><text x="290" y="140">D-3</text><text x="580"
                                             y="140">Today</text></g>
@@ -3156,7 +3290,7 @@
                                     checking again next round.
                                 </div>
                                 <div class="note-item">
-                                    <div class="who">Reza A. <span class="when">· 1 week ago</span></div>
+                                    <div class="who">Khayla A. <span class="when">· 1 week ago</span></div>
                                     Vibration pattern looks similar to KO-3201 before its trip. Watching closely.
                                 </div>
                             </div>
@@ -3177,6 +3311,26 @@
                             <div class="page-sub">Follow-up actions generated from Root Cause Explorer</div>
                         </div>
                         <button class="btn" onclick="openActionModal()">+ Add action</button>
+                    </div>
+
+                    <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Total Actions (Open)</div>
+                            <div class="kpi-value">5 <span style="font-size:14px;color:var(--text-faint)">of
+                                    18</span></div>
+                            <div class="kpi-target">Target: ≤ 4 overdue at any time</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">RCA/CAPA Closure Rate</div>
+                            <div class="kpi-value warning">68%</div>
+                            <div class="kpi-target">Target: ≥ 85% closed on time</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg. Time to Close</div>
+                            <div class="kpi-value">11.4 <span style="font-size:14px;color:var(--text-faint)">days</span>
+                            </div>
+                            <div class="kpi-target">Target: ≤ 7 days</div>
+                        </div>
                     </div>
                     <div class="panel">
                         <table class="table" id="actiontracker-table">
@@ -3280,7 +3434,7 @@
                             <tr>
                                 <td>Mechanical seal flush line inspection</td>
                                 <td class="eq-cell">PU-2101B</td>
-                                <td><span class="avatar-sm">RA</span>Reza A.</td>
+                                <td><span class="avatar-sm">KA</span>Khayla A.</td>
                                 <td><span class="tag-pill">ROT</span></td>
                                 <td>Completed</td>
                                 <td><span class="status-chip chip-done">DONE</span></td>
@@ -3408,9 +3562,9 @@
                 <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
                     <div class="avatar"
                         style="width:56px; height:56px; font-size:18px; background:var(--panel-2); color:var(--text); border-color:var(--border);">
-                        RA</div>
+                        KA</div>
                     <div>
-                        <div style="font-weight:800; font-size:16px;">Reza Ardiansyah</div>
+                        <div style="font-weight:800; font-size:16px;">Khayla Adelia</div>
                         <div style="font-size:12.5px; color:var(--text-faint);">Reliability Engineer · Unit 3200 &amp;
                             5700</div>
                     </div>
@@ -3418,7 +3572,7 @@
                 <div class="spec-grid">
                     <div>
                         <div class="spec-label">Employee ID</div>
-                        <div class="spec-value">CAP-RE-1042</div>
+                        <div class="spec-value">CAP-KA-1042</div>
                     </div>
                     <div>
                         <div class="spec-label">Department</div>
@@ -3430,7 +3584,7 @@
                     </div>
                     <div>
                         <div class="spec-label">Email</div>
-                        <div class="spec-value">reza.a@capcx.com</div>
+                        <div class="spec-value">khayla.a@capcx.com</div>
                     </div>
                 </div>
                 <div class="panel-title" style="margin:20px 0 10px 0; font-size:13px;">This month</div>
@@ -3455,6 +3609,26 @@
     <div class="toast" id="toast">✓ <span id="toast-text">Done</span></div>
 
     <script>
+        // --- Jam & tanggal real-time di topbar ---
+        // Diupdate tiap detik pakai setInterval, dengan zona waktu
+        // Asia/Jakarta dan format bahasa Indonesia.
+        function updateClock() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', {
+                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                timeZone: 'Asia/Jakarta'
+            });
+            const timeStr = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                timeZone: 'Asia/Jakarta'
+            });
+            document.getElementById('clock-date').textContent = dateStr;
+            document.getElementById('clock-time').textContent = timeStr + ' WIB';
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+
         // ============================================================
         // JAVASCRIPT — cuma ada 2 fungsi di seluruh mockup ini
         // ============================================================
@@ -3501,6 +3675,22 @@
             // supaya kelihatan seperti "expand/collapse" pada umumnya
             const chev = document.getElementById(id + '-chev');
             chev.style.transform = row.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+
+        // --- Filter Equipment Health Map berdasarkan fungsi pemilik ---
+        // Cakupannya CUMA equipment tile di panel ini — tidak
+        // mengubah KPI atau panel lain, karena tujuan Case 2 adalah
+        // menyatukan pandangan lintas fungsi, bukan memecahnya lagi
+        // jadi dashboard terpisah per departemen.
+        function filterByDept(dept, chipEl) {
+            document.querySelectorAll('.dept-chip').forEach(c => c.classList.remove('active'));
+            chipEl.classList.add('active');
+
+            document.querySelectorAll('#page-overview .eq-tile').forEach(tile => {
+                const tileDept = tile.dataset.dept;
+                tile.style.display = (dept === 'all' || tileDept === dept) ? '' : 'none';
+            });
         }
 
 
@@ -3655,7 +3845,7 @@
             bar.outerHTML = `
       <div class="oversight-bar">
         <div class="oversight-note">
-          <span class="rejected-badge">✕ Rejected by Reza A.</span>
+          <span class="rejected-badge">✕ Rejected by Khayla A.</span>
           <span style="margin-left:8px;">${reason || 'No reason given'}</span>
         </div>
       </div>
@@ -3678,7 +3868,7 @@
             const list = document.getElementById('notes-list');
             const note = document.createElement('div');
             note.className = 'note-item';
-            note.innerHTML = `<div class="who">Reza A. <span class="when">· just now</span></div>${text}`;
+            note.innerHTML = `<div class="who">Khayla A. <span class="when">· just now</span></div>${text}`;
             list.insertBefore(note, list.firstChild);
 
             input.value = '';
