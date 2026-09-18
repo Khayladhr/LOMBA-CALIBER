@@ -31,12 +31,24 @@
             --accent: var(--dusk-blue);
             --accent-soft: #E3E9F7;
             --accent-deep: #2C4179;
-            --success: #3E9B90;
-            --success-soft: #E2F3F1;
-            --warning: #E08A1F;
-            --warning-soft: #FCEBD3;
-            --critical: #D6373F;
-            --critical-soft: #FBE0E1;
+            --success: #1E8A5F;
+            --success-soft: #DCF2E8;
+            --warning: #D98200;
+            --warning-soft: #FBEBD2;
+            --critical: #C62828;
+            --critical-soft: #FADEDE;
+            /* chart tokens — see 02_charts.js for why each exists */
+            --viz-ramp-1: #104281;
+            --viz-ramp-2: #1C5CAB;
+            --viz-ramp-3: #2A78D6;
+            --viz-ramp-4: #5598E7;
+            --viz-ramp-5: #86B6EF;
+            --viz-cat-1: #2A78D6;
+            --viz-cat-2: #EB6834;
+            --viz-cat-3: #1BAF7A;
+            --viz-ai: #6D28D9;
+            --viz-ink: #1B2559;
+            --viz-mute: #6B7280;
             --ai-tint: var(--thistle);
             --ai-text: #7A4C99;
             --ai-soft: #F7ECFC;
@@ -578,16 +590,40 @@
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 17px 19px
+            padding: 17px 19px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--border)
+        }
+
+        .kpi-card.k-good::before {
+            background: var(--success)
+        }
+
+        .kpi-card.k-warn::before {
+            background: var(--warning)
+        }
+
+        .kpi-card.k-crit::before {
+            background: var(--critical)
         }
 
         .kpi-label {
             font-size: 11.5px;
-            color: var(--text-faint);
+            color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: .05em;
             margin-bottom: 10px;
-            font-weight: 700
+            font-weight: 800
         }
 
         .kpi-value {
@@ -617,18 +653,24 @@
         }
 
         .kpi-target {
-            font-size: 10.5px;
-            color: var(--text-faint);
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border);
-            font-weight: 600
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 10px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+            font-weight: 700;
+            line-height: 1.45
+        }
+
+        .kpi-target b {
+            color: var(--text);
+            font-weight: 800
         }
 
         .kpi-delta {
-            font-size: 11.5px;
-            margin-top: 7px;
-            font-weight: 600
+            font-size: 12.5px;
+            margin-top: 8px;
+            font-weight: 700
         }
 
         .kpi-delta.up {
@@ -688,10 +730,10 @@
         }
 
         .panel-title-sub {
-            font-size: 11px;
-            color: var(--text-faint);
-            margin-top: 2px;
-            line-height: 1.45
+            font-size: 11.5px;
+            color: var(--text-dim);
+            margin-top: 3px;
+            line-height: 1.5
         }
 
         .link {
@@ -852,60 +894,209 @@
         }
 
         /* ---- bad actors ---- */
-        .bad-actor-row {
+        /* ---- ranked bar rows: one measure, ordinal ramp, value direct-labelled ---- */
+        .rank-list {
+            display: flex;
+            flex-direction: column
+        }
+
+        .rank-row {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-soft);
+            padding: 9px 6px;
+            border-radius: 8px;
+            min-width: 0
+        }
+
+        .rank-row[data-asset] {
             cursor: pointer
         }
 
-        .bad-actor-row:last-child {
-            border-bottom: none
-        }
-
-        .bad-actor-row:hover {
+        .rank-row[data-asset]:hover {
             background: var(--panel-2)
         }
 
-        .ba-rank {
+        .rank-n {
             font-family: var(--mono);
             color: var(--text-faint);
-            font-size: 12px;
-            width: 16px;
-            flex-shrink: 0
+            font-size: 11.5px;
+            width: 14px;
+            flex-shrink: 0;
+            font-weight: 700
         }
 
-        .ba-tag {
+        .rank-key {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            font-weight: 700;
+            width: 112px;
+            flex-shrink: 0;
+            line-height: 1.3;
+            overflow-wrap: anywhere
+        }
+
+        .rank-sub {
+            display: block;
+            font-family: var(--sans);
+            font-size: 10px;
+            color: var(--text-faint);
+            font-weight: 600;
+            margin-top: 1px
+        }
+
+        .rank-track {
+            flex: 1;
+            height: 10px;
+            background: var(--panel-3);
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 24px
+        }
+
+        .rank-track i {
+            display: block;
+            height: 100%;
+            border-radius: 5px
+        }
+
+        .rank-val {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--text);
+            width: 78px;
+            text-align: right;
+            flex-shrink: 0;
+            font-weight: 700
+        }
+
+        /* ---- stage funnel ---- */
+        .funnel-bar {
+            display: flex;
+            gap: 2px;
+            height: 38px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 16px
+        }
+
+        .funnel-bar span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 3px
+        }
+
+        .funnel-bar b {
             font-family: var(--mono);
             font-size: 12px;
-            width: 82px;
+            color: #fff;
+            font-weight: 700
+        }
+
+        .funnel-head,
+        .funnel-row {
+            display: grid;
+            grid-template-columns: 14px minmax(0, 1.5fr) 56px 62px minmax(60px, 1.2fr) 82px;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 4px
+        }
+
+        .funnel-head {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text-faint);
+            font-weight: 800;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px
+        }
+
+        .funnel-head .num,
+        .funnel-row .num {
+            text-align: right
+        }
+
+        .funnel-row {
+            border-bottom: 1px solid var(--border-soft)
+        }
+
+        .funnel-row:last-child {
+            border-bottom: none
+        }
+
+        .funnel-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px
+        }
+
+        .funnel-stage {
+            font-size: 12.5px;
+            font-weight: 700;
+            line-height: 1.3
+        }
+
+        .funnel-note {
+            display: block;
+            font-size: 10.5px;
+            color: var(--text-faint);
             font-weight: 600;
-            flex-shrink: 0
+            margin-top: 1px
         }
 
-        .ba-bar-wrap {
-            flex: 1;
-            height: 7px;
-            background: var(--panel-3);
-            border-radius: 4px;
-            overflow: hidden;
-            min-width: 30px
+        .funnel-n {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 700
         }
 
-        .ba-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--warning), var(--critical))
-        }
-
-        .ba-val {
+        .funnel-share {
             font-family: var(--mono);
             font-size: 12px;
             color: var(--text-dim);
-            width: 70px;
+            font-weight: 600
+        }
+
+        .funnel-track {
+            height: 9px;
+            background: var(--panel-3);
+            border-radius: 5px;
+            overflow: hidden
+        }
+
+        .funnel-track i {
+            display: block;
+            height: 100%;
+            border-radius: 5px;
+            opacity: .9
+        }
+
+        .funnel-track em {
+            display: block;
             text-align: right;
-            flex-shrink: 0
+            font-style: normal;
+            font-size: 10.5px;
+            color: var(--text-faint);
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase
+        }
+
+        .funnel-row.settled .funnel-track {
+            background: none
+        }
+
+        .funnel-row.settled .funnel-loss,
+        .funnel-row.settled .funnel-n {
+            color: var(--text-dim)
+        }
+
+        .funnel-loss {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            font-weight: 700
         }
 
         /* ============================================================
@@ -956,6 +1147,10 @@
         .table td.r,
         .table th.r {
             text-align: right
+        }
+
+        .table td.r.num {
+            white-space: nowrap
         }
 
         .table tbody tr.click:hover td {
@@ -1368,14 +1563,15 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 11.5px;
-            color: var(--text-dim)
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 600
         }
 
         .legend-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 2px;
+            width: 11px;
+            height: 11px;
+            border-radius: 3px;
             flex-shrink: 0
         }
 
@@ -2381,7 +2577,7 @@
         }
 
         /* ============================================================
-   13. LOGIN
+   13. LOGIN — full-screen split: brand panel + sign-in panel
    ============================================================ */
         .hidden {
             display: none !important
@@ -2390,84 +2586,182 @@
         .login-overlay {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at 20% 20%, #17194F, var(--deep-navy) 65%);
+            z-index: 500;
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+            background: var(--panel);
+            overflow: hidden
+        }
+
+        /* left: navy brand panel, fills its half of the screen */
+        .login-brandpane {
+            position: relative;
+            background: radial-gradient(120% 120% at 15% 10%, #1B1E63 0%, var(--deep-navy) 55%, #07082E 100%);
+            color: #fff;
+            padding: clamp(32px, 4vw, 64px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden
+        }
+
+        .login-brandpane::after {
+            content: '';
+            position: absolute;
+            right: -18%;
+            bottom: -28%;
+            width: 78%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(117, 203, 209, .22), transparent 68%);
+            pointer-events: none
+        }
+
+        .login-brandpane>* {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 580px
+        }
+
+        .login-mark {
+            display: flex;
+            align-items: center;
+            gap: 13px
+        }
+
+        .login-mark .brand-mark {
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            border-radius: 12px
+        }
+
+        .login-mark .n {
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: 21px;
+            line-height: 1.1
+        }
+
+        .login-mark .s {
+            font-size: 11.5px;
+            color: var(--sidebar-text-dim);
+            margin-top: 2px
+        }
+
+        .login-pitch {
+            max-width: 100%
+        }
+
+        .login-pitch h1 {
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: clamp(28px, 3.1vw, 44px);
+            line-height: 1.14;
+            letter-spacing: -.01em;
+            max-width: 17ch;
+            text-wrap: balance
+        }
+
+        .login-pitch p {
+            margin-top: 16px;
+            font-size: clamp(13px, 1.05vw, 15px);
+            line-height: 1.65;
+            color: var(--sidebar-text);
+            max-width: 42ch
+        }
+
+        .login-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+            gap: 14px;
+            border-top: 1px solid var(--sidebar-border);
+            padding-top: 22px
+        }
+
+        .login-stat .v {
+            font-family: var(--display);
+            font-size: clamp(20px, 2vw, 27px);
+            font-weight: 600;
+            color: var(--pearl-aqua);
+            line-height: 1.1
+        }
+
+        .login-stat .l {
+            font-size: 11px;
+            color: var(--sidebar-text-dim);
+            margin-top: 4px;
+            line-height: 1.4;
+            font-weight: 600
+        }
+
+        /* right: the form, vertically centred, never wider than a comfortable column */
+        .login-formpane {
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 500;
-            padding: 20px;
+            padding: clamp(28px, 4vw, 56px);
             overflow-y: auto
         }
 
         .login-box {
-            background: var(--panel);
-            border-radius: 20px;
-            width: 400px;
-            max-width: 100%;
-            padding: 32px 30px 26px 30px;
-            box-shadow: 0 30px 70px -20px rgba(0, 0, 0, .5)
+            width: 100%;
+            max-width: 392px
         }
 
         .login-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 26px
-        }
-
-        .login-brand-name {
-            font-family: var(--display);
-            font-weight: 600;
-            font-size: 19px;
-            color: var(--text)
-        }
-
-        .login-brand-sub {
-            font-size: 11px;
-            color: var(--text-faint)
+            display: none
         }
 
         .login-title {
             font-family: var(--display);
-            font-size: 20px;
+            font-size: clamp(22px, 2vw, 27px);
             font-weight: 600;
-            margin-bottom: 4px
+            margin-bottom: 6px
         }
 
         .login-sub {
-            font-size: 12.5px;
+            font-size: 13px;
             color: var(--text-faint);
-            margin-bottom: 22px
+            margin-bottom: 26px
         }
 
         .login-error {
             display: none;
             background: var(--critical-soft);
             color: var(--critical);
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 700;
-            padding: 9px 12px;
+            padding: 10px 13px;
             border-radius: 9px;
-            margin-bottom: 14px
+            margin-bottom: 15px;
+            line-height: 1.45
         }
 
         .login-error.show {
             display: block
         }
 
+        .login-formpane .form-input {
+            padding: 11px 13px;
+            font-size: 13.5px
+        }
+
         .login-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 4px 0 20px 0;
-            gap: 10px
+            margin: 6px 0 22px 0;
+            gap: 10px;
+            flex-wrap: wrap
         }
 
         .login-remember {
             display: flex;
             align-items: center;
-            gap: 7px;
-            font-size: 12px;
+            gap: 8px;
+            font-size: 12.5px;
             color: var(--text-dim);
             font-weight: 600;
             cursor: pointer
@@ -2475,10 +2769,66 @@
 
         .login-hint {
             text-align: center;
-            font-size: 11px;
+            font-size: 11.5px;
             color: var(--text-faint);
-            margin-top: 16px;
-            line-height: 1.55
+            margin-top: 20px;
+            line-height: 1.6
+        }
+
+        /* phone / short screens: one column, brand condensed into a header band */
+        @media (max-width:900px) {
+            .login-overlay {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: auto 1fr;
+                overflow-y: auto
+            }
+
+            .login-brandpane {
+                padding: 22px 20px 26px;
+                gap: 18px
+            }
+
+            .login-brandpane::after {
+                display: none
+            }
+
+            .login-pitch h1 {
+                font-size: 23px
+            }
+
+            .login-pitch p {
+                display: none
+            }
+
+            .login-stats {
+                padding-top: 16px;
+                gap: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(78px, 1fr))
+            }
+
+            .login-stat .v {
+                font-size: 18px
+            }
+
+            .login-stat .l {
+                font-size: 10px
+            }
+
+            .login-formpane {
+                padding: 26px 20px 40px;
+                align-items: flex-start
+            }
+        }
+
+        @media (max-height:560px) and (min-width:901px) {
+            .login-brandpane {
+                justify-content: center;
+                gap: 26px
+            }
+
+            .login-stats {
+                display: none
+            }
         }
 
         /* ============================================================
@@ -2610,6 +2960,23 @@
                 gap: 6px
             }
 
+            .funnel-head {
+                display: none
+            }
+
+            .funnel-row {
+                grid-template-columns: 14px minmax(0, 1fr) 52px 74px;
+                row-gap: 4px
+            }
+
+            .funnel-row .funnel-track {
+                display: none
+            }
+
+            .rank-key {
+                width: 92px
+            }
+
             .cparam-val,
             .cparam-status {
                 text-align: left
@@ -2635,36 +3002,71 @@
      LOGIN — mock auth, any credentials work (prototype)
      ============================================================ -->
     <div class="login-overlay" id="login-overlay">
-        <div class="login-box">
-            <div class="login-brand">
-                <div class="brand-mark" style="width:44px;height:44px;font-size:20px;">I</div>
+
+        <!-- left: what this thing is, stated in the numbers it actually runs on -->
+        <aside class="login-brandpane">
+            <div class="login-mark">
+                <div class="brand-mark">I</div>
                 <div>
-                    <div class="login-brand-name">Intelix</div>
-                    <div class="login-brand-sub">Manufacturing Intelligence</div>
+                    <div class="n">Intelix</div>
+                    <div class="s">Manufacturing Intelligence</div>
                 </div>
             </div>
-            <div class="login-title">Sign in to your account</div>
-            <div class="login-sub">Olefins Complex · Unit 3200 &amp; 5700</div>
-            <div id="login-error" class="login-error"></div>
-            <div class="form-group">
-                <label class="form-label" for="login-username">Employee email</label>
-                <input type="email" id="login-username" class="form-input" placeholder="khayla.a@capcx.com"
-                    autocomplete="username">
+
+            <div class="login-pitch">
+                <h1>One pane of glass for the whole plant.</h1>
+                <p>Production, maintenance, reliability, electrical and HSE data on a single equipment-tag key — with
+                    the
+                    root cause and the follow-up action already attached to every alert.</p>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="login-password">Password</label>
-                <input type="password" id="login-password" class="form-input" placeholder="••••••••"
-                    autocomplete="current-password">
+
+            <div class="login-stats">
+                <div class="login-stat">
+                    <div class="v" id="ls-inc">—</div>
+                    <div class="l">Risk records<br>integrated</div>
+                </div>
+                <div class="login-stat">
+                    <div class="v" id="ls-asset">—</div>
+                    <div class="l">Assets under<br>condition monitoring</div>
+                </div>
+                <div class="login-stat">
+                    <div class="v" id="ls-samp">—</div>
+                    <div class="l">Hourly PI-tag<br>samples</div>
+                </div>
+                <div class="login-stat">
+                    <div class="v" id="ls-rca">—</div>
+                    <div class="l">Closed RCA<br>investigations</div>
+                </div>
             </div>
-            <div class="login-row">
-                <label class="login-remember" for="login-remember"><input type="checkbox" id="login-remember"> Remember
-                    me</label>
-                <button class="link" type="button" id="btn-forgot">Forgot password?</button>
+        </aside>
+
+        <!-- right: the form -->
+        <main class="login-formpane">
+            <div class="login-box">
+                <div class="login-title">Sign in to your account</div>
+                <div class="login-sub">Olefins Complex · Unit 3200 &amp; 5700</div>
+                <div id="login-error" class="login-error"></div>
+                <div class="form-group">
+                    <label class="form-label" for="login-username">Employee email</label>
+                    <input type="email" id="login-username" class="form-input" placeholder="khayla.a@capcx.com"
+                        autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="••••••••"
+                        autocomplete="current-password">
+                </div>
+                <div class="login-row">
+                    <label class="login-remember" for="login-remember"><input type="checkbox" id="login-remember">
+                        Remember me</label>
+                    <button class="link" type="button" id="btn-forgot">Forgot password?</button>
+                </div>
+                <button class="btn" style="width:100%;padding:13px 18px;font-size:13.5px" id="btn-login">Sign
+                    In</button>
+                <div class="login-hint">Prototype build for CALIBER 2026 — any email &amp; password will work.<br>
+                    Every figure inside is computed from the supplied baseline datasets.</div>
             </div>
-            <button class="btn" style="width:100%;padding:12px 18px;" id="btn-login">Sign In</button>
-            <div class="login-hint">Prototype build for CALIBER 2026 — any email &amp; password will work.<br>Every
-                figure inside is computed from the supplied baseline datasets.</div>
-        </div>
+        </main>
     </div>
 
     <!-- ============================================================
@@ -3204,10 +3606,12 @@
             const k = KB[tag];
             return k ? parseFloat(String(k.loss).replace(/[^0-9.]/g, '')) : 176.8;
         }
+        /* Three bands, not four. A fourth level would need a fourth colour, and the
+           only hue left between amber and red is the one no reader can separate from
+           either. NORMAL / WARNING / CRITICAL maps cleanly onto watch / plan / act. */
         function statusOf(recorded, sev) {
             if (recorded === 'TRIP') return 'CRITICAL';
-            if (sev >= 0.88) return 'CRITICAL';
-            if (sev >= 0.70) return 'ALARM';
+            if (sev >= 0.80) return 'CRITICAL';
             if (sev >= 0.35) return 'WARNING';
             return 'NORMAL';
         }
@@ -3588,17 +3992,55 @@
         }
 
         /* ==========================================================================
-           CHART KIT — hand-drawn SVG in the Intelix palette. One scale per chart,
-           every label names a value the chart actually reaches.
+           CHART KIT
+           Colour is assigned by the job it does, never decoratively:
+        
+           • Ranked bars of ONE measure (downtime by mode, loss by tag, workload by
+             owner) are magnitude, not identity — so they take a single-hue ordinal
+             blue ramp, darkest = largest. Five different hues on one measure is the
+             mistake that made the old orange and yellow bars indistinguishable.
+           • True identity series take the categorical slots, which are capped at
+             three because no six-hue set clears the colour-blind separation floor
+             when every pair is on screen at once.
+           • State takes the reserved status colours, and never anything else.
+        
+           Every ramp below was checked with the palette validator on a white panel:
+           monotone lightness, ≥0.06 lightness gap between steps, light end clear of
+           the surface, and ≥8 ΔE colour-blind separation on the categorical set.
            ========================================================================== */
+
+        /* Categorical hues, used in this fixed order and never cycled.
+           Validated on a white panel against the ADJACENT pairlist, which is the
+           right test for bars and stacks (neighbours are what a reader compares):
+           worst adjacent colour-blind ΔE 9.2, worst normal-vision ΔE 20.8.
+           Yellow sits at slot 6 and orange at slot 2 so the two can never land
+           side by side — that pairing is what made the first build unreadable. */
+        const CAT = ['#2A78D6', '#EB6834', '#1BAF7A', '#4A3AA7', '#E34948', '#EDA100'];
+        /* single-hue ordinal ramp, kept for anything that is pure magnitude */
+        const RAMP = ['#104281', '#1C5CAB', '#2A78D6', '#5598E7', '#86B6EF'];
+        /* workflow stages: four distinct hues, then green for closed and a neutral
+           grey for cancelled — worst adjacent ΔE 13.8 colour-blind, 18.9 normal */
+        const STAGE = ['#2A78D6', '#EB6834', '#4A3AA7', '#EDA100'];
+
         const C = {
-            accent: '#3E5BA3', deep: '#0C0D45', aqua: '#75CBD1', crit: '#D6373F',
-            warn: '#E08A1F', ok: '#3E9B90', ai: '#7A4C99', grid: '#D3E0F1',
-            faint: '#8A92B0', dim: '#4E5578', soft: '#DCE7F6'
+            /* brand ink */
+            deep: '#0C0D45', dim: '#4E5578', faint: '#8A92B0', grid: '#DCE7F6', soft: '#EEF3FB',
+            /* categorical — all-pairs safe, use in this order and stop at three */
+            cat1: '#2A78D6', cat2: '#EB6834', cat3: '#1BAF7A',
+            /* reserved status — always shipped with a word, never colour alone */
+            ok: '#1E8A5F', warn: '#D98200', crit: '#C62828', mute: '#6B7280',
+            /* model output — deliberately off the data hues */
+            ai: '#6D28D9',
+            /* the observed data line reads as ink, not as a category */
+            ink: '#1B2559',
+            ramp: RAMP, stage: STAGE, cat: CAT
         };
         const MONO = 'JetBrains Mono, monospace';
+        const rampAt = (i, n) => RAMP[Math.min(RAMP.length - 1, Math.round(i * (RAMP.length - 1) / Math.max(1, n - 1)))];
+        const catAt = i => CAT[i % CAT.length];
 
-        function sparkline(vals, w = 190, h = 26, colour = C.accent) {
+        /* ---------------------------------------------------------------- sparkline */
+        function sparkline(vals, w = 190, h = 26, colour = C.cat1) {
             if (!vals || vals.length < 2) return '';
             const mn = Math.min(...vals), mx = Math.max(...vals), sp = (mx - mn) || 1;
             const pts = vals.map((v, i) => [2 + i * (w - 6) / (vals.length - 1), h - 3 - ((v - mn) / sp) * (h - 8)]);
@@ -3606,45 +4048,104 @@
             const area = d + ` L${pts[pts.length - 1][0].toFixed(1)} ${h} L2 ${h} Z`;
             const last = pts[pts.length - 1];
             return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" aria-hidden="true" preserveAspectRatio="none">
-    <path d="${area}" fill="${colour}" opacity=".12"/>
-    <path d="${d}" fill="none" stroke="${colour}" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
-    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.4" fill="${colour}"/></svg>`;
+    <path d="${area}" fill="${colour}" opacity=".13"/>
+    <path d="${d}" fill="none" stroke="${colour}" stroke-width="1.7" vector-effect="non-scaling-stroke"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.6" fill="${colour}"/></svg>`;
         }
 
-        /* split a category label onto at most two lines so nothing is truncated */
+        /* --------------------------------------------------- ranked column chart ----
+           A hue per category, in the fixed order above. Every bar is direct-labelled
+           with its value and its name, which is the relief the two lower-contrast
+           hues require. Pass {ramp:true} for a single-hue magnitude ramp instead.   */
+        function columnChart(items, opts = {}) {
+            if (!items.length) return '<div class="note-text">No records in scope.</div>';
+            const W = 560, H = 224, L = 10, R = 10, T = 26, B = 52;
+            const mx = Math.max(...items.map(i => i.v)) || 1;
+            const cw = (W - L - R) / items.length;
+            const base = H - B;
+            let bars = '';
+            items.forEach((it, k) => {
+                const h = Math.max((it.v / mx) * (base - T), 3);
+                const bw = Math.min(cw - 14, 72);
+                const x = L + k * cw + (cw - bw) / 2, y = base - h;
+                const fill = it.c || (opts.ramp ? rampAt(k, items.length) : catAt(k));
+                bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}"
+        rx="4" fill="${fill}"><title>${esc(it.k)}: ${esc(it.lab || n0(it.v))}</title></rect>
+      <text x="${(x + bw / 2).toFixed(1)}" y="${(y - 8).toFixed(1)}" text-anchor="middle" font-size="12"
+        font-family="${MONO}" font-weight="700" fill="${C.deep}">${esc(it.lab || n0(it.v))}</text>
+      ${wrapLabel(String(it.k)).map((line, li) =>
+                    `<text x="${(x + bw / 2).toFixed(1)}" y="${base + 17 + li * 12}" text-anchor="middle" font-size="10.5"
+          font-family="${MONO}" fill="${C.dim}">${esc(line)}</text>`).join('')}`;
+            });
+            return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(opts.alt || 'ranked column chart')}">
+    <line x1="${L}" y1="${base}" x2="${W - R}" y2="${base}" stroke="${C.grid}" stroke-width="1.5"/>
+    ${bars}</svg>`;
+        }
         function wrapLabel(s) {
-            if (s.length <= 12) return [s];
+            if (s.length <= 13) return [s];
             const parts = s.split(' ');
-            if (parts.length === 1) return [s.slice(0, 12), s.slice(12, 24)];
+            if (parts.length === 1) return [s.slice(0, 13), s.slice(13, 26)];
             let a = '', b = '';
-            parts.forEach(w => { if ((a + ' ' + w).trim().length <= 12 && !b) a = (a + ' ' + w).trim(); else b = (b + ' ' + w).trim(); });
+            parts.forEach(w => { if ((a + ' ' + w).trim().length <= 13 && !b) a = (a + ' ' + w).trim(); else b = (b + ' ' + w).trim(); });
             return [a, b].filter(Boolean);
         }
 
-        /* Column chart with value labels — used for downtime by failure mode */
-        function columnChart(items, opts = {}) {
-            const W = 520, H = 208, L = 8, R = 8, T = 22, B = 42;
-            if (!items.length) return '<div class="note-text">No records in scope.</div>';
+        /* ------------------------------------------------------ ranked bar rows ----
+           Horizontal version of the same idea: one measure, ordinal ramp, value
+           direct-labelled at the end of each row.                                   */
+        function rankedBars(items, fmtv, opts = {}) {
+            if (!items.length) return '<div class="note-text">Nothing in scope.</div>';
             const mx = Math.max(...items.map(i => i.v)) || 1;
-            const cw = (W - L - R) / items.length;
-            let bars = '';
-            items.forEach((it, k) => {
-                const h = Math.max((it.v / mx) * (H - T - B), 2);
-                const x = L + k * cw + cw * 0.18, y = H - B - h, bw = cw * 0.64;
-                bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${it.c || C.accent}"/>
-      <text x="${(x + bw / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="10.5" font-family="${MONO}" font-weight="600" fill="${C.deep}">${esc(it.lab || n0(it.v))}</text>
-      ${wrapLabel(String(it.k)).map((line, li) =>
-                    `<text x="${(x + bw / 2).toFixed(1)}" y="${H - B + 15 + li * 11}" text-anchor="middle" font-size="9.5" font-family="${MONO}" fill="${C.faint}">${esc(line)}</text>`).join('')}`;
-            });
-            return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(opts.alt || 'column chart')}">${bars}</svg>`;
+            const fill = (i, k) => i.c ? i.c
+                : opts.heat ? 'linear-gradient(90deg,' + C.warn + ',' + C.crit + ')'   /* severity heat, one family */
+                    : opts.ramp ? rampAt(k, items.length)
+                        : catAt(k);
+            return `<div class="rank-list">` + items.map((i, k) => `
+    <div class="rank-row"${i.click ? ` data-asset="${esc(i.click)}" role="button" tabindex="0"` : ''}>
+      ${opts.rank ? `<span class="rank-n">${k + 1}</span>` : ''}
+      <span class="rank-key">${esc(i.k)}${i.sub ? `<span class="rank-sub">${esc(i.sub)}</span>` : ''}</span>
+      <span class="rank-track"><i style="width:${Math.max(100 * i.v / mx, 1.5).toFixed(1)}%;background:${fill(i, k)}"></i></span>
+      <span class="rank-val">${fmtv ? fmtv(i.v) : n0(i.v)}</span>
+    </div>`).join('') + `</div>`;
         }
 
-        /* Condition trend with alarm / trip bands, the plant-date cursor,
-           the AI projection ray, and the un-seen future dimmed out. */
+        /* ------------------------------------------------------------- funnel ------
+           Where every open case currently sits, in workflow order. One 100% stacked
+           bar for the shape, then a row per stage carrying the count, the share and
+           the loss still riding on it — the number an executive actually acts on.  */
+        function stageFunnel(stages, total) {
+            const seg = stages.filter(s => s.n > 0);
+            const bar = `<div class="funnel-bar">` + seg.map(s =>
+                `<span style="flex:${s.n};background:${s.c}" title="${esc(s.k)}: ${s.n} cases">
+       ${s.n / total > 0.045 ? `<b>${s.n}</b>` : ''}</span>`).join('') + `</div>`;
+            /* the bar tracks UNMITIGATED loss only — a closed case is not still carrying
+               its loss, so settled stages show the figure without a bar rather than
+               drawing the longest bar on the panel for the one stage that is finished */
+            const mxLoss = Math.max(...stages.filter(s => !s.settled).map(s => s.ls), 1);
+            const rows = stages.map(s => `
+    <div class="funnel-row${s.settled ? ' settled' : ''}">
+      <span class="funnel-swatch" style="background:${s.c}"></span>
+      <span class="funnel-stage">${esc(s.k)}<span class="funnel-note">${esc(s.note)}</span></span>
+      <span class="funnel-n num">${n0(s.n)}</span>
+      <span class="funnel-share num">${s.n ? num(100 * s.n / total, 1) + '%' : '–'}</span>
+      <span class="funnel-track">${s.settled ? '<em>settled</em>'
+                    : `<i style="width:${Math.max(100 * s.ls / mxLoss, 1).toFixed(1)}%;background:${s.c}"></i>`}</span>
+      <span class="funnel-loss num">${money(s.ls)}</span>
+    </div>`).join('');
+            return bar + `<div class="funnel-head">
+      <span></span><span>Stage</span><span class="num">Cases</span><span class="num">Share</span>
+      <span>Loss still unmitigated</span><span class="num">Value</span></div>` + rows;
+        }
+
+        /* ------------------------------------------------- condition trend chart ---
+           Observed reading against its own alarm and trip limits, with the plant-date
+           cursor and the model's projection. Line style doubles for colour: observed
+           is solid ink, the projection is dashed violet, the unseen future is a thin
+           grey rule.                                                                */
         function trendChart(tag, i, w, opts = {}) {
             const a = A[tag], p = a.params[i], n = a.hist.length;
             const vals = a.hist.map(r => r[2 + i]);
-            const W = 640, H = 210, L = 46, R = 14, T = 16, B = 30;
+            const W = 640, H = 214, L = 48, R = 16, T = 18, B = 32;
             const lim = [p.a, p.t].filter(v => v != null);
             const mn = Math.min(...vals, ...lim), mx = Math.max(...vals, ...lim);
             const pad = ((mx - mn) * 0.14) || 1, y0 = mn - pad, y1 = mx + pad;
@@ -3654,17 +4155,18 @@
             for (let t = 0; t <= 4; t++) {
                 const v = y0 + (y1 - y0) * t / 4, y = Y(v);
                 g += `<line x1="${L}" y1="${y.toFixed(1)}" x2="${W - R}" y2="${y.toFixed(1)}" stroke="${C.grid}" stroke-width="1"/>
-      <text x="${L - 7}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="${MONO}" fill="${C.faint}">${(+v.toFixed(Math.abs(v) >= 100 ? 0 : Math.abs(v) >= 10 ? 1 : 2))}</text>`;
+      <text x="${L - 8}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="10" font-family="${MONO}"
+        fill="${C.faint}">${(+v.toFixed(Math.abs(v) >= 100 ? 0 : Math.abs(v) >= 10 ? 1 : 2))}</text>`;
             }
             let bands = '';
             if (p.a != null && p.t != null) {
                 const hi = p.d === 'high', aY = Y(p.a), tY = Y(p.t);
-                bands += `<rect x="${L}" y="${Math.min(aY, tY).toFixed(1)}" width="${W - L - R}" height="${Math.abs(tY - aY).toFixed(1)}" fill="${C.warn}" opacity=".10"/>`;
-                bands += `<rect x="${L}" y="${(hi ? T : tY).toFixed(1)}" width="${W - L - R}" height="${Math.max(hi ? tY - T : H - B - tY, 0).toFixed(1)}" fill="${C.crit}" opacity=".10"/>`;
-                bands += `<line x1="${L}" y1="${aY.toFixed(1)}" x2="${W - R}" y2="${aY.toFixed(1)}" stroke="${C.warn}" stroke-width="1.2" stroke-dasharray="5 3"/>
-      <text x="${W - R}" y="${(aY - 5).toFixed(1)}" text-anchor="end" font-size="9" font-family="${MONO}" fill="${C.warn}">ALARM ${p.a}</text>`;
-                bands += `<line x1="${L}" y1="${tY.toFixed(1)}" x2="${W - R}" y2="${tY.toFixed(1)}" stroke="${C.crit}" stroke-width="1.2" stroke-dasharray="5 3"/>
-      <text x="${W - R}" y="${(tY + 12).toFixed(1)}" text-anchor="end" font-size="9" font-family="${MONO}" fill="${C.crit}">TRIP ${p.t}</text>`;
+                bands += `<rect x="${L}" y="${Math.min(aY, tY).toFixed(1)}" width="${W - L - R}" height="${Math.abs(tY - aY).toFixed(1)}" fill="${C.warn}" opacity=".12"/>`;
+                bands += `<rect x="${L}" y="${(hi ? T : tY).toFixed(1)}" width="${W - L - R}" height="${Math.max(hi ? tY - T : H - B - tY, 0).toFixed(1)}" fill="${C.crit}" opacity=".12"/>`;
+                bands += `<line x1="${L}" y1="${aY.toFixed(1)}" x2="${W - R}" y2="${aY.toFixed(1)}" stroke="${C.warn}" stroke-width="1.4" stroke-dasharray="5 3"/>
+      <text x="${W - R}" y="${(aY - 5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="${MONO}" font-weight="700" fill="${C.warn}">ALARM ${p.a}</text>`;
+                bands += `<line x1="${L}" y1="${tY.toFixed(1)}" x2="${W - R}" y2="${tY.toFixed(1)}" stroke="${C.crit}" stroke-width="1.4" stroke-dasharray="5 3"/>
+      <text x="${W - R}" y="${(tY + 13).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="${MONO}" font-weight="700" fill="${C.crit}">TRIP ${p.t}</text>`;
             }
             const path = arr => arr.map((v, k) => (k ? 'L' : 'M') + X(k).toFixed(1) + ' ' + Y(v).toFixed(1)).join(' ');
             const seen = vals.slice(0, w + 1);
@@ -3675,27 +4177,25 @@
             if (w < n - 1 && Math.abs(b) > 1e-9) {
                 const k1 = Math.min(n - 1, w + 6);
                 const v0 = ia + b * (ys.length - 1), v1 = ia + b * (ys.length - 1 + (k1 - w));
-                /* the ray is named in the legend, not on the plot, so it can never
-                   collide with the alarm / trip limit labels */
                 ray = `<line x1="${X(w).toFixed(1)}" y1="${Y(v0).toFixed(1)}" x2="${X(k1).toFixed(1)}" y2="${Y(clamp(v1, y0, y1)).toFixed(1)}"
-      stroke="${C.ai}" stroke-width="2" stroke-dasharray="6 4"/>
-      <circle cx="${X(k1).toFixed(1)}" cy="${Y(clamp(v1, y0, y1)).toFixed(1)}" r="3" fill="${C.ai}"/>`;
+      stroke="${C.ai}" stroke-width="2.4" stroke-dasharray="7 4" stroke-linecap="round"/>
+      <circle cx="${X(k1).toFixed(1)}" cy="${Y(clamp(v1, y0, y1)).toFixed(1)}" r="4" fill="${C.ai}" stroke="#fff" stroke-width="1.5"/>`;
             }
             let ticks = '';
             for (let k = 0; k < n; k += 5)
-                ticks += `<text x="${X(k).toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="9" font-family="${MONO}" fill="${C.faint}">W${k + 1}</text>`;
-            const cur = `<line x1="${X(w).toFixed(1)}" y1="${T}" x2="${X(w).toFixed(1)}" y2="${H - B}" stroke="${C.accent}" stroke-width="1.4"/>
-    <circle cx="${X(w).toFixed(1)}" cy="${Y(vals[w]).toFixed(1)}" r="4" fill="${C.accent}" stroke="#fff" stroke-width="1.5"/>`;
+                ticks += `<text x="${X(k).toFixed(1)}" y="${H - 11}" text-anchor="middle" font-size="9.5" font-family="${MONO}" fill="${C.faint}">W${k + 1}</text>`;
+            const cur = `<line x1="${X(w).toFixed(1)}" y1="${T}" x2="${X(w).toFixed(1)}" y2="${H - B}" stroke="${C.cat1}" stroke-width="1.4"/>
+    <circle cx="${X(w).toFixed(1)}" cy="${Y(vals[w]).toFixed(1)}" r="4.5" fill="${C.cat1}" stroke="#fff" stroke-width="2"/>`;
             return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(p.n)} against alarm and trip limits">
     ${g}${bands}
-    <path d="${futPath}" fill="none" stroke="${C.faint}" stroke-width="1.4" opacity=".35"/>
-    <path d="${path(seen)}" fill="none" stroke="${opts.colour || C.deep}" stroke-width="2.2"/>
+    <path d="${futPath}" fill="none" stroke="${C.faint}" stroke-width="1.5" opacity=".4" stroke-dasharray="2 3"/>
+    <path d="${path(seen)}" fill="none" stroke="${opts.colour || C.ink}" stroke-width="2.4" stroke-linejoin="round"/>
     ${ray}${cur}${ticks}</svg>`;
         }
 
-        /* Energy intensity: measured days, then a 7-day forecast with its 95% band */
+        /* ------------------------------------------------------- energy forecast --- */
         function forecastChart(e) {
-            const W = 640, H = 190, L = 50, R = 14, T = 14, B = 28;
+            const W = 640, H = 198, L = 52, R = 16, T = 16, B = 30;
             const all = [...e.sei, ...e.fc.map(f => f.hi), ...e.fc.map(f => f.lo)];
             const mn = Math.min(...all), mx = Math.max(...all), pad = ((mx - mn) * 0.22) || 0.05;
             const y0 = mn - pad, y1 = mx + pad, n = e.sei.length + e.fc.length;
@@ -3704,14 +4204,10 @@
             for (let t = 0; t <= 3; t++) {
                 const v = y0 + (y1 - y0) * t / 3, y = Y(v);
                 g += `<line x1="${L}" y1="${y.toFixed(1)}" x2="${W - R}" y2="${y.toFixed(1)}" stroke="${C.grid}"/>
-      <text x="${L - 7}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="${MONO}" fill="${C.faint}">${v.toFixed(2)}</text>`;
+      <text x="${L - 8}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="10" font-family="${MONO}" fill="${C.faint}">${v.toFixed(2)}</text>`;
             }
             const obs = e.sei.map((v, k) => (k ? 'L' : 'M') + X(k).toFixed(1) + ' ' + Y(v).toFixed(1)).join(' ');
-            const j = e.sei.length - 1;
-            /* the forecast leaves from the fitted value at the last observation, not
-               from the observation itself — otherwise the last day's residual shows up
-               as a kink the model never predicted */
-            const yFit = e.intercept + e.slope * j;
+            const j = e.sei.length - 1, yFit = e.intercept + e.slope * j;
             const up = [`M${X(j).toFixed(1)} ${Y(yFit).toFixed(1)}`]
                 .concat(e.fc.map((f, k) => 'L' + X(j + 1 + k).toFixed(1) + ' ' + Y(f.hi).toFixed(1))).join(' ');
             const dn = e.fc.slice().reverse().map((f, k) => 'L' + X(n - 1 - k).toFixed(1) + ' ' + Y(f.lo).toFixed(1))
@@ -3720,37 +4216,39 @@
                 .concat(e.fc.map((f, k) => 'L' + X(j + 1 + k).toFixed(1) + ' ' + Y(f.v).toFixed(1))).join(' ');
             return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="Specific energy intensity with seven-day forecast">
     ${g}
-    <path d="${up} ${dn} Z" fill="${C.aqua}" opacity=".22"/>
-    <path d="${obs}" fill="none" stroke="${C.accent}" stroke-width="2.2"/>
-    <path d="${mid}" fill="none" stroke="${C.ok}" stroke-width="2.2" stroke-dasharray="6 4"/>
-    <line x1="${X(j).toFixed(1)}" y1="${T}" x2="${X(j).toFixed(1)}" y2="${H - B}" stroke="${C.grid}" stroke-dasharray="3 3"/>
-    <text x="${(X(j) + 5).toFixed(1)}" y="${T + 10}" font-size="9.5" font-family="${MONO}" fill="${C.faint}">today</text>
-    <text x="${L}" y="${H - 9}" font-size="9.5" font-family="${MONO}" fill="${C.faint}">day 1</text>
-    <text x="${W - R}" y="${H - 9}" text-anchor="end" font-size="9.5" font-family="${MONO}" fill="${C.ok}">+7 d</text></svg>`;
+    <path d="${up} ${dn} Z" fill="${C.cat3}" opacity=".16"/>
+    <path d="${obs}" fill="none" stroke="${C.cat1}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="${mid}" fill="none" stroke="${C.cat3}" stroke-width="2.4" stroke-dasharray="7 4" stroke-linecap="round"/>
+    <line x1="${X(j).toFixed(1)}" y1="${T}" x2="${X(j).toFixed(1)}" y2="${H - B}" stroke="${C.faint}" stroke-dasharray="3 3"/>
+    <text x="${(X(j) + 6).toFixed(1)}" y="${T + 11}" font-size="10" font-family="${MONO}" fill="${C.dim}">today</text>
+    <text x="${L}" y="${H - 10}" font-size="10" font-family="${MONO}" fill="${C.faint}">day 1</text>
+    <text x="${W - R}" y="${H - 10}" text-anchor="end" font-size="10" font-family="${MONO}" font-weight="700" fill="${C.cat3}">+7 d</text></svg>`;
         }
 
-        /* Horizontal ranked bars — plants, disciplines, owners */
-        function hbars(items, fmtv, colourFn) {
-            if (!items.length) return '<div class="note-text">Nothing in scope.</div>';
-            const mx = Math.max(...items.map(i => i.v)) || 1;
-            return items.map(i => `<div class="bad-actor-row" style="cursor:default">
-    <div class="ba-tag" style="width:96px">${esc(i.k)}</div>
-    <div class="ba-bar-wrap"><div class="ba-bar" style="width:${(100 * i.v / mx).toFixed(1)}%;background:${colourFn ? colourFn(i) : C.accent}"></div></div>
-    <div class="ba-val">${fmtv ? fmtv(i.v) : n0(i.v)}</div></div>`).join('');
+        /* ------------------------------------------------------------- legend ------ */
+        function legend(items) {
+            return `<div class="chart-legend">` + items.map(i =>
+                `<span class="legend-item"><span class="legend-dot" style="background:${i.c};${i.dash ? 'opacity:.9' : ''}"></span>${esc(i.k)}</span>`).join('') + `</div>`;
         }
 
-        /* Confidence ring (conic gradient, matching the design system) */
+        /* confidence ring — one value, so one hue */
         function ring(pct01, colour) {
             const p = Math.round(clamp(pct01, 0, 1) * 100);
-            return `<div class="confidence-ring" style="background:conic-gradient(${colour || C.accent} 0% ${p}%, var(--border) ${p}% 100%)">
+            return `<div class="confidence-ring" style="background:conic-gradient(${colour || C.cat1} 0% ${p}%, var(--panel-3) ${p}% 100%)">
     <div class="confidence-ring-inner">${p}%</div></div>`;
         }
+
+        /* ---- state → colour. Three bands only. A fourth would put two ambers side
+           by side, which is exactly the pair no one can tell apart. --------------- */
         function statusClass(s) {
-            return s === 'CRITICAL' ? 'status-critical' : s === 'ALARM' ? 'status-alarm'
-                : s === 'WARNING' ? 'status-warning' : s === 'NORMAL' ? 'status-normal' : 'status-flat';
+            return s === 'CRITICAL' || s === 'TRIP' ? 'status-critical'
+                : s === 'WARNING' || s === 'ALARM' ? 'status-warning'
+                    : s === 'NORMAL' ? 'status-normal' : 'status-flat';
         }
         function statusColour(s) {
-            return s === 'CRITICAL' ? C.crit : s === 'ALARM' ? '#B26A0B' : s === 'WARNING' ? C.warn : C.ok;
+            return s === 'CRITICAL' || s === 'TRIP' ? C.crit
+                : s === 'WARNING' || s === 'ALARM' ? C.warn
+                    : s === 'NORMAL' ? C.ok : C.mute;
         }
         function bandClass(b) {
             return b === 'CRITICAL' ? 'p-critical' : b === 'HIGH' ? 'p-high' : b === 'MEDIUM' ? 'p-medium' : 'p-low';
@@ -3979,18 +4477,21 @@
         /* ==========================================================================
            PAGES — Monitor + Foundation
            ========================================================================== */
-        function kpiCard(label, value, unit, delta, deltaCls, target, valCls) {
-            return `<div class="kpi-card">
+        function kpiCard(label, value, unit, delta, deltaCls, target, tone) {
+            const rail = tone === 'crit' ? ' k-crit' : tone === 'warn' ? ' k-warn' : tone === 'good' ? ' k-good' : '';
+            const valCls = tone === 'crit' ? 'critical' : tone === 'warn' ? 'warning' : tone === 'good' ? 'success' : '';
+            return `<div class="kpi-card${rail}">
     <div class="kpi-label">${esc(label)}</div>
-    <div class="kpi-value ${valCls || ''}">${value}${unit ? ` <span class="u">${esc(unit)}</span>` : ''}</div>
+    <div class="kpi-value ${valCls}">${value}${unit ? ` <span class="u">${esc(unit)}</span>` : ''}</div>
     ${delta ? `<div class="kpi-delta ${deltaCls || 'flat'}">${delta}</div>` : ''}
-    ${target ? `<div class="kpi-target">${esc(target)}</div>` : ''}
+    ${target ? `<div class="kpi-target">${target}</div>` : ''}
   </div>`;
         }
+        /* actual vs target, phrased so the arrow and the word always agree */
         function vs(actual, target, higherIsBetter) {
             const good = higherIsBetter ? actual >= target : actual <= target;
             const diff = Math.abs(actual - target);
-            const over = actual > target;                     // which side of the target we are on
+            const over = actual > target;
             return {
                 good, cls: good ? 'down' : 'up',
                 txt: (over ? '▲ ' : '▼ ') + num(diff, diff < 10 ? 1 : 0) + (over ? ' above' : ' below') + ' target'
@@ -4007,16 +4508,28 @@
             const mttrV = K.mttr ? vs(K.mttr, 12, false) : null;
             const pmV = vs(K.pm, 95, true);
 
-            const mech = agg.mech.slice(0, 5).map((m, i) => ({
-                k: m.k, v: m.dn, lab: n0(m.dn) + 'h',
-                c: [C.crit, C.warn, C.warn, C.accent, C.aqua][i]
-            }));
-            const badActors = agg.rows.reduce((acc, r) => {
-                acc[r.tag] = (acc[r.tag] || 0) + (r.ls || 0); return acc;
-            }, {});
-            const top = Object.entries(badActors).sort((a, b) => b[1] - a[1]).slice(0, 6);
-            const topMax = top.length ? top[0][1] : 1;
+            /* one measure across categories → ordinal ramp, darkest = worst */
+            const mech = agg.mech.slice(0, 6).map(m => ({ k: m.k, v: m.dn, lab: n0(m.dn) + ' h' }));
+            const mechShare = 100 * agg.mech.slice(0, 3).reduce((s2, m) => s2 + m.dn, 0) / (agg.dn || 1);
 
+            const byTag = {};
+            agg.rows.forEach(r => byTag[r.tag] = (byTag[r.tag] || 0) + (r.ls || 0));
+            const top = Object.entries(byTag).sort((a, b) => b[1] - a[1]).slice(0, 6)
+                .map(([tag, ls]) => ({
+                    k: tag, v: ls, click: A[tag] ? tag : null,
+                    sub: A[tag] ? 'live sensor feed' : 'register only'
+                }));
+
+            /* workflow order, not alphabetical — the stage list has to read like a pipeline */
+            const cnt = k => agg.status.find(x => x.k === k) || { n: 0, ls: 0 };
+            const STAGES = [
+                { k: 'New registered', src: 'NEW REGISTERED', c: STAGE[0], note: 'Raised, not yet investigated' },
+                { k: 'RCA in process', src: 'RCA PROCESS', c: STAGE[1], note: 'Root cause being established' },
+                { k: 'CA/PA execution', src: 'CA/PA EXECUTION', c: STAGE[2], note: 'Fix agreed, work under way' },
+                { k: 'Monitoring result', src: 'MONITORING RESULT', c: STAGE[3], note: 'Fix in place, proving it holds' },
+                { k: 'Risk closed', src: 'RISK CLOSED', c: C.ok, note: 'Designed out and signed off', settled: true },
+                { k: 'Risk cancelled', src: 'RISK CANCELED', c: '#9AA3AE', note: 'Withdrawn — no longer a risk', settled: true }
+            ].map(st => ({ ...st, n: cnt(st.src).n, ls: cnt(st.src).ls }));
             const closure = agg.n ? 100 * agg.closed / agg.n : 0;
 
             return `
@@ -4030,145 +4543,155 @@
   </div>
 
   <div class="kpi-row">
-    ${kpiCard('Plant Availability', pct(K.avail, 2), '', availV.txt, availV.cls, 'Target: ≥ 99.50%', availV.good ? '' : 'warning')}
+    ${kpiCard('Plant Availability', pct(K.avail, 2), '', availV.txt, availV.cls,
+                'Target <b>≥ 99.50%</b>', availV.good ? 'good' : 'warn')}
     ${kpiCard('MTBF', n0(K.mtbf), 'hrs', mtbfV.txt, mtbfV.cls,
-                'Target: ≥ 4,380 hrs · ' + K.failed.length + ' failure' + (K.failed.length === 1 ? '' : 's') + ' in ' + n0(K.F.reduce((s2, x) => s2 + x.week * 168, 0)) + ' op-hrs',
-                mtbfV.good ? 'success' : '')}
-    ${kpiCard('MTTR', K.mttr ? num(K.mttr, 1) : '—', 'hrs', mttrV ? mttrV.txt : 'No failure in period', mttrV ? mttrV.cls : 'flat', 'Target: ≤ 12.0 hrs', mttrV && !mttrV.good ? 'warning' : '')}
-    ${kpiCard('PM Compliance', pct(K.pm, 1), '', pmV.txt, pmV.cls, 'Target: ≥ 95.0%', pmV.good ? 'success' : 'warning')}
-    ${kpiCard('Register loss to date', money(agg.loss), '', n0(agg.dn) + ' hrs downtime · ' + agg.n + ' incidents', 'up', 'Limit: ≤ ' + money(50000) + ' / yr', 'critical')}
+                    'Target <b>≥ 4,380 hrs</b><br>' + K.failed.length + ' failure' + (K.failed.length === 1 ? '' : 's') +
+                    ' in ' + n0(K.F.reduce((s2, x) => s2 + x.week * 168, 0)) + ' op-hrs', mtbfV.good ? 'good' : 'warn')}
+    ${kpiCard('MTTR', K.mttr ? num(K.mttr, 1) : '—', 'hrs', mttrV ? mttrV.txt : 'No failure in period',
+                        mttrV ? mttrV.cls : 'flat', 'Target <b>≤ 12.0 hrs</b>', mttrV ? (mttrV.good ? 'good' : 'warn') : '')}
+    ${kpiCard('PM Compliance', pct(K.pm, 1), '', pmV.txt, pmV.cls,
+                            'Target <b>≥ 95.0%</b>', pmV.good ? 'good' : 'warn')}
+    ${kpiCard('Register loss to date', money(agg.loss), '',
+                                n0(agg.dn) + ' hrs downtime · ' + agg.n + ' incidents', 'up',
+                                'Limit <b>≤ ' + money(50000) + ' / yr</b>', 'crit')}
   </div>
 
   <div class="panel" style="margin-bottom:16px;">
     <div class="panel-head">
       <div>
         <div class="panel-title">Equipment Health Map</div>
-        <div class="panel-title-sub">${F.length} monitored asset${F.length > 1 ? 's' : ''} · each shown at its own position in its 26-week condition record on ${fmtDate(S.date)} · filter by owning function</div>
+        <div class="panel-title-sub">${F.length} monitored asset${F.length > 1 ? 's' : ''} · each shown at its own position in its 26-week condition record on ${fmtDate(S.date)}</div>
       </div>
       <button class="link" data-go="equipment">Open equipment detail →</button>
     </div>
     <div class="dept-filter-row">
       <span class="dept-filter-label">Owning function:</span>
       ${['all', 'Production', 'Maintenance', 'Reliability', 'Electrical'].map(d =>
-                    `<button class="dept-chip${d === 'all' ? ' active' : ''}" data-dept="${d}">${d === 'all' ? 'All' : d}</button>`).join('')}
+                                    `<button class="dept-chip${d === 'all' ? ' active' : ''}" data-dept="${d}">${d === 'all' ? 'All' : d}</button>`).join('')}
+      <span style="flex:1"></span>
+      ${legend([{ k: 'Normal — watch', c: C.ok }, { k: 'Warning — plan', c: C.warn }, { k: 'Critical — act', c: C.crit }])}
     </div>
     <div class="eq-grid">
-      ${F.map(s => {
-                        const col = statusColour(s.status);
-                        const vals = A[s.tag].hist.slice(0, s.w + 1).map(r => r[2 + s.f.i]);
-                        const eta = isFinite(s.f.wTrip) ? (s.f.wTrip < 1 ? '< 1 wk' : num(s.f.wTrip, 1) + ' wk') : 'no crossing';
-                        return `<button class="eq-tile" data-dept="${esc(s.fn)}" data-asset="${esc(s.tag)}">
+      ${F.map(s2 => {
+                                        const col = statusColour(s2.status);
+                                        const vals = A[s2.tag].hist.slice(0, s2.w + 1).map(r => r[2 + s2.f.i]);
+                                        const eta = isFinite(s2.f.wTrip) ? (s2.f.wTrip < 1 ? '< 1 wk' : num(s2.f.wTrip, 1) + ' wk') : 'no crossing';
+                                        return `<button class="eq-tile" data-dept="${esc(s2.fn)}" data-asset="${esc(s2.tag)}">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
-            <span class="eq-tag">${esc(s.tag)}</span>
-            <span class="status-pill ${statusClass(s.status)}"><span class="dot"></span>${s.status}</span>
+            <span class="eq-tag">${esc(s2.tag)}</span>
+            <span class="status-pill ${statusClass(s2.status)}"><span class="dot"></span>${s2.status}</span>
           </div>
-          <div class="eq-name">${esc(A[s.tag].info['Equipment Name'])}</div>
-          <div class="hbar"><i style="width:${s.health}%;background:${col}"></i></div>
-          <div class="eq-metric"><span>Health index</span><b>${s.health}</b></div>
-          <div class="eq-metric"><span>${esc(s.f.p.n)}</span><b>${num(s.f.v, 2)} ${esc(s.f.p.u)}</b></div>
+          <div class="eq-name">${esc(A[s2.tag].info['Equipment Name'])}</div>
+          <div class="hbar"><i style="width:${s2.health}%;background:${col}"></i></div>
+          <div class="eq-metric"><span>Health index</span><b>${s2.health}</b></div>
+          <div class="eq-metric"><span>${esc(s2.f.p.n)}</span><b>${num(s2.f.v, 2)} ${esc(s2.f.p.u)}</b></div>
           <div class="eq-metric"><span>Projected time to trip</span><b style="color:${col}">${eta}</b></div>
-          <div class="eq-metric"><span>Risk-weighted exposure</span><b>${money(s.exposure)}</b></div>
+          <div class="eq-metric"><span>Risk-weighted exposure</span><b>${money(s2.exposure)}</b></div>
           <div style="margin-top:8px">${sparkline(vals, 190, 26, col)}</div>
         </button>`;
-                    }).join('')}
+                                    }).join('')}
     </div>
   </div>
 
-  <div class="grid-2">
+  <div class="grid-even">
     <div class="panel">
       <div class="panel-head">
         <div><div class="panel-title">Downtime by Failure Mode</div>
-          <div class="panel-title-sub">Register to ${fmtDate(S.date)} · ${agg.n} records · hours lost</div></div>
+          <div class="panel-title-sub">Hours lost per mechanism · register to ${fmtDate(S.date)} · ${agg.n} records</div></div>
         <button class="link" data-go="problemtank">Details →</button>
       </div>
-      ${columnChart(mech, { alt: 'Downtime hours by failure mechanism' })}
-      <div class="note-text" style="margin-top:10px">
-        ${esc(agg.mech.slice(0, 3).map(m => m.k).join(', '))} together account for
-        <b>${pct(100 * agg.mech.slice(0, 3).reduce((s, m) => s + m.dn, 0) / (agg.dn || 1), 0)}</b>
-        of all recorded downtime — and they are exactly the three mechanisms the five monitored assets are instrumented for.
+      ${columnChart(mech, { alt: 'Downtime hours by failure mechanism, largest first' })}
+      <div class="note-text" style="margin-top:12px">
+        <b>${esc(agg.mech.slice(0, 3).map(m => m.k).join(', '))}</b> together account for
+        <b>${pct(mechShare, 0)}</b> of all recorded downtime — and they are exactly the three mechanisms the
+        ${F.length} monitored assets are instrumented for.
       </div>
     </div>
 
     <div class="panel">
       <div class="panel-head">
         <div><div class="panel-title">Top Bad Actors</div>
-          <div class="panel-title-sub">Cumulative loss per tag, register to ${fmtDate(S.date)}</div></div>
+          <div class="panel-title-sub">Cumulative loss per equipment tag · register to ${fmtDate(S.date)}</div></div>
         <button class="link" data-go="problemtank">See all →</button>
       </div>
-      ${top.map(([tag, ls], i) => `<div class="bad-actor-row" ${A[tag] ? `data-asset="${esc(tag)}"` : 'style="cursor:default"'}>
-        <div class="ba-rank">${i + 1}</div>
-        <div class="ba-tag">${esc(tag)}</div>
-        <div class="ba-bar-wrap"><div class="ba-bar" style="width:${(100 * ls / topMax).toFixed(1)}%"></div></div>
-        <div class="ba-val">${money(ls)}</div></div>`).join('')}
-      <div class="note-text" style="margin-top:10px">
-        ${A[top[0][0]] ? '<b>' + esc(top[0][0]) + '</b> is a monitored asset — click it to open its condition record.' :
-                    'Tags without a live sensor feed are register-only; they are candidates for the next instrumentation wave.'}
+      ${rankedBars(top, v => money(v), { rank: true, heat: true })}
+      <div class="note-text" style="margin-top:12px">
+        ${top.some(t => t.click) ? 'Tags with a live sensor feed are clickable — they open straight into the condition record.'
+                    : 'None of the current leaders carries a live sensor feed; they are the candidates for the next instrumentation wave.'}
       </div>
     </div>
   </div>
 
-  <div class="grid-2">
-    <div class="panel">
-      <div class="panel-head">
-        <div><div class="panel-title">Risk Closure Funnel</div>
-          <div class="panel-title-sub">${agg.open} of ${agg.n} cases still open · ${money(agg.openLoss)} unmitigated</div></div>
+  <div class="panel" style="margin-bottom:16px">
+    <div class="panel-head">
+      <div><div class="panel-title">Risk Closure Funnel</div>
+        <div class="panel-title-sub">Where all ${agg.n} cases sit right now, in workflow order — and how much loss each stage is still carrying</div></div>
+      <span class="tag-pill" style="background:var(--critical-soft);color:var(--critical);border-color:transparent">
+        ${money(agg.openLoss)} unmitigated</span>
+    </div>
+    ${stageFunnel(STAGES, agg.n)}
+    <div class="grid-even" style="margin-top:18px;margin-bottom:0">
+      <div class="note-text">
+        Closure rate is <b>${pct(closure, 0)}</b>. Each stage has its own colour and its own row, so the pipeline reads left
+        to right across the bar and top to bottom down the list. Only the four in-progress stages carry unmitigated loss —
+        the green and grey rows are settled, so their figures are shown without a bar.
       </div>
-      ${hbars(agg.status.sort((a, b) => b.n - a.n).map(s => ({ k: s.k, v: s.n })), v => n0(v),
-                        i => i.k === 'RISK CLOSED' ? C.ok : i.k === 'RISK CANCELED' ? C.faint : i.k === 'CA/PA EXECUTION' ? C.warn : C.accent)}
-      <div class="note-text" style="margin-top:10px">
-        Closure rate is <b>${pct(closure, 0)}</b>. Everything left of “risk closed” is still carrying loss that has not been
-        designed out — <b>${agg.overdue}</b> of those cases are already past their RCA due date, worth ${money(agg.overdueLoss)}.
+      <div class="note-text">
+        <b>${agg.overdue} of the ${agg.open} open cases are already past their RCA due date</b>, worth
+        ${money(agg.overdueLoss)} across ${agg.plant.length} plants and ${agg.pic.length} accountable owners. That backlog is
+        what fragmented tracking makes it possible not to notice — and it is the first thing the Action Tracker ranks.
       </div>
     </div>
+  </div>
 
-    <div class="panel flush">
-      <div class="panel-head">
-        <div><div class="panel-title">Top Priority Alerts</div>
-          <div class="panel-title-sub">Live deviations and open register cases, ranked by one exposure formula</div></div>
-        <button class="link" data-go="problemtank">Open Problem Tank →</button>
-      </div>
-      <div class="tw"><table class="table">
-        <thead><tr><th>Priority</th><th>Equipment</th><th>Symptom</th><th class="r">Exposure</th><th>Owner</th></tr></thead>
-        <tbody>${P.slice(0, 7).map(p => `<tr class="click" data-prob="${esc(p.key)}" data-tag="${esc(p.tag)}">
-          <td><span class="priority-badge ${bandClass(p.band)}">${p.band}</span></td>
-          <td class="eq-cell">${esc(p.tag)}<span class="mini">${esc(p.plant)} · ${esc(p.disc)}</span></td>
-          <td>${esc(String(p.symptom).slice(0, 62))}${String(p.symptom).length > 62 ? '…' : ''}
-            <span class="mini">${esc(p.src)}</span></td>
-          <td class="r"><span class="risk-score">${money(p.exposure)}</span></td>
-          <td><span class="tag-pill">${esc(p.owner || '–')}</span></td></tr>`).join('')}</tbody>
-      </table></div>
+  <div class="panel flush" style="margin-bottom:16px">
+    <div class="panel-head">
+      <div><div class="panel-title">Top Priority Alerts</div>
+        <div class="panel-title-sub">Live condition deviations and open register cases, ranked by one exposure formula</div></div>
+      <button class="link" data-go="problemtank">Open Problem Tank →</button>
     </div>
+    <div class="tw"><table class="table">
+      <thead><tr><th>Priority</th><th>Equipment</th><th>Symptom</th><th>Source</th>
+        <th class="r">Exposure</th><th>Owner</th><th></th></tr></thead>
+      <tbody>${P.slice(0, 8).map(p2 => `<tr class="click" data-prob="${esc(p2.key)}" data-tag="${esc(p2.tag)}">
+        <td><span class="priority-badge ${bandClass(p2.band)}">${p2.band}</span></td>
+        <td class="eq-cell">${esc(p2.tag)}<span class="mini">${esc(p2.plant)} · ${esc(p2.disc)}</span></td>
+        <td>${esc(p2.symptom)}</td>
+        <td><span class="tag-pill">${esc(p2.src)}</span></td>
+        <td class="r"><span class="risk-score">${money(p2.exposure)}</span></td>
+        <td><span class="tag-pill">${esc(p2.owner || '–')}</span></td>
+        <td><button class="link" data-investigate="${esc(p2.key)}">Investigate →</button></td></tr>`).join('')}</tbody>
+    </table></div>
   </div>
 
   <div class="panel">
     <div class="panel-head">
       <div><div class="panel-title">Back-test — did the model see it coming?</div>
-        <div class="panel-title-sub">Forecast issued four weeks before each recorded failure, compared with what the condition record actually shows</div></div>
+        <div class="panel-title-sub">Forecast issued four weeks before each recorded failure, against what the condition record actually shows</div></div>
       <span class="ai-badge">✦ AI validation</span>
     </div>
     <div class="tw"><table class="table">
       <thead><tr><th>Asset</th><th>Leading parameter</th><th class="r">Fit R²</th><th class="r">Predicted wks to trip</th>
         <th class="r">Actual</th><th class="r">Error</th><th>Verdict</th></tr></thead>
       <tbody>${TAGS.map(t => {
-                            const tripW = A[t].hist.findIndex(r => r[6] === 'TRIP');
-                            const w17 = tripW - 4;
-                            const f = forecast(t, w17);
-                            const actual = tripW - w17;
-                            const err = isFinite(f.wTrip) ? f.wTrip - actual : null;
-                            const ok = err != null && Math.abs(err) <= 1.5;
-                            return `<tr><td class="eq-cell">${esc(t)}</td><td>${esc(f.p.n)}</td>
+                        const tripW = A[t].hist.findIndex(r => r[6] === 'TRIP');
+                        const f = forecast(t, tripW - 4);
+                        const err = isFinite(f.wTrip) ? f.wTrip - 4 : null;
+                        const ok = err != null && Math.abs(err) <= 1.5;
+                        return `<tr data-tag="${esc(t)}"><td class="eq-cell">${esc(t)}</td><td>${esc(f.p.n)}</td>
           <td class="r num">${num(f.r2, 3)}</td>
           <td class="r num">${isFinite(f.wTrip) ? num(f.wTrip, 1) : '–'}</td>
-          <td class="r num">${actual}</td>
-          <td class="r num" style="color:${ok ? C.ok : C.warn}">${err == null ? '–' : (err > 0 ? '+' : '') + num(err, 1)}</td>
+          <td class="r num">4</td>
+          <td class="r num" style="color:${ok ? C.ok : C.warn};font-weight:700">${err == null ? '–' : (err > 0 ? '+' : '') + num(err, 1)}</td>
           <td><span class="status-pill ${ok ? 'status-normal' : 'status-warning'}"><span class="dot"></span>${ok ? 'within ±1.5 wk' : 'outside band'}</span></td></tr>`;
-                        }).join('')}</tbody>
+                    }).join('')}</tbody>
     </table></div>
     <div class="note-text" style="margin-top:12px">
       Mean absolute error <b>${num(mean(TAGS.map(t => {
-                            const tw = A[t].hist.findIndex(r => r[6] === 'TRIP'); const f = forecast(t, tw - 4);
-                            return isFinite(f.wTrip) ? Math.abs(f.wTrip - 4) : 0;
-                        })), 2)} weeks</b> across all five assets.
+                        const tw = A[t].hist.findIndex(r => r[6] === 'TRIP'); const f = forecast(t, tw - 4);
+                        return isFinite(f.wTrip) ? Math.abs(f.wTrip - 4) : 0;
+                    })), 2)} weeks</b> across all ${TAGS.length} assets.
       Drag the plant-date control back to late March or late April to watch the cockpit raise these alerts weeks before the
       recorded failures — that window is the entire value case.
     </div>
@@ -4242,6 +4765,8 @@
         <div class="panel-title-sub">Multi-parameter correlation, not a single threshold · the grey marker on each bar is that parameter's alarm limit</div></div>
       <span class="ai-badge">✦ AI composite scoring</span>
     </div>
+    ${legend([{ k: 'Inside envelope', c: C.ok }, { k: 'Trending toward limit', c: C.warn },
+            { k: 'At or past alarm', c: C.crit }, { k: '│ alarm limit', c: 'transparent' }])}
     ${cp.rows.map(r => {
                 const col = r.sev >= 0.88 ? C.crit : r.sev >= 0.7 ? '#B26A0B' : r.sev >= 0.4 ? C.warn : C.ok;
                 const cls = r.sev >= 0.88 ? 'status-critical' : r.sev >= 0.7 ? 'status-alarm' : r.sev >= 0.4 ? 'status-warning' : 'status-normal';
@@ -4460,11 +4985,8 @@
         ${TAGS.map(t => `<option value="${esc(t)}"${t === tag ? ' selected' : ''}>${esc(t)}</option>`).join('')}
       </select>
     </div>
-    <div class="forecast-legend">
-      <div class="legend-item"><span class="legend-dot" style="background:${C.accent}"></span>Measured</div>
-      <div class="legend-item"><span class="legend-dot" style="background:${C.ok}"></span>Forecast</div>
-      <div class="legend-item"><span class="legend-dot" style="background:${C.aqua};opacity:.5"></span>95% prediction interval</div>
-    </div>
+    ${legend([{ k: 'Measured', c: C.cat1 }, { k: 'Forecast', c: C.cat3 },
+            { k: '95% prediction interval', c: 'color-mix(in srgb, ' + C.cat3 + ' 25%, #fff)' }])}
     ${forecastChart(e)}
     <div class="note-text" style="margin-top:10px">
       Baseline <b>${num(e.base, 3)} kWh/t</b>, drift <b>${(e.slope > 0 ? '+' : '') + num(e.slope, 4)} kWh/t per day</b>
@@ -4776,7 +5298,7 @@
         </div>
         ${sims.length ? `<div class="match-card${decision === 'rejected' ? ' rejected' : ''}">
           <div class="match-header">
-            ${ring(sims[0].s, C.accent)}
+            ${ring(sims[0].s, C.cat1)}
             <div style="flex:1;min-width:200px">
               <div style="font-weight:700;margin-bottom:4px">${esc(sims[0].r.tag)} · ${esc(sims[0].r.ttl)}</div>
               <div class="rca-source-tag">Register · ${esc(sims[0].r.cp)} / ${esc(sims[0].r.fm)} · ${fmtDate(sims[0].r.dt)}</div>
@@ -4811,7 +5333,7 @@
 
         ${sims.slice(1, 4).map(s => `<div class="match-card" style="opacity:.72;padding:14px 18px">
           <div class="match-header" style="margin-bottom:0">
-            ${ring(s.s, C.accent)}
+            ${ring(s.s, C.cat1)}
             <div style="flex:1;min-width:180px">
               <div style="font-weight:700;margin-bottom:3px;font-size:13px">${esc(s.r.tag)} · ${esc(String(s.r.ttl).slice(0, 52))}</div>
               <div class="rca-source-tag">${esc(s.r.cp)} / ${esc(s.r.fm)} · ${num(s.r.dn, 1)} hrs · ${money(s.r.ls)} · ${esc(s.r.st)}</div>
@@ -5220,17 +5742,28 @@
     <div class="panel">
       <div class="panel-head"><div><div class="panel-title">Workload by owner</div>
         <div class="panel-title-sub">Actions assigned per PIC across the five investigations</div></div></div>
-      ${hbars(ownerRows, v => n0(v), i => i.over > 2 ? C.crit : i.over > 0 ? C.warn : C.accent)}
-      <div class="note-text" style="margin-top:10px">
-        Bars turn amber and red where that owner is carrying overdue work. <b>${ownerRows.filter(o => o.over > 0).length}</b>
-        of ${ownerRows.length} owners have at least one action past its plan date.
-      </div>
+      ${rankedBars(ownerRows.map(o => ({
+                        k: o.k, v: o.v,
+                        sub: o.over > 0 ? o.over + ' overdue' : 'all on plan',
+                        c: o.over > 2 ? C.crit : o.over > 0 ? C.warn : C.ok
+                    })), v => n0(v) + (v === 1 ? ' action' : ' actions'))}
+      ${legend([{ k: 'All on plan', c: C.ok }, { k: '1–2 overdue', c: C.warn }, { k: '3+ overdue', c: C.crit }])}
+      <div class="note-text" style="margin-top:8px">Bars turn amber and red where that owner is carrying overdue work.
+        <b>${ownerRows.filter(o => o.over > 0).length}</b> of ${ownerRows.length} owners have at least one action past its plan date.</div>
+      <div class="panel-title" style="font-size:13px;margin:18px 0 4px">By action type</div>
+      <div class="panel-title-sub" style="margin-bottom:8px">What the ${TAGS.length} investigations actually asked for</div>
+      ${rankedBars(['Corrective', 'Pro-active', 'Preventive', 'Risk control']
+                        .map(t => ({
+                            k: t, v: all.filter(a => a.type === t).length,
+                            sub: all.filter(a => a.type === t && !a.done).length + ' open'
+                        }))
+                        .sort((a, b) => b.v - a.v), v => n0(v) + (v === 1 ? ' action' : ' actions'))}
     </div>
     <div class="panel">
       <div class="panel-head"><div><div class="panel-title">Register backlog by owner</div>
         <div class="panel-title-sub">Open risk cases past their RCA due date as at ${fmtDate(S.date)}</div></div></div>
-      ${hbars(Object.entries(ovByPic).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([k2, v]) => ({ k: k2, v })),
-                        v => n0(v), i => i.v > 18 ? C.crit : i.v > 10 ? C.warn : C.accent)}
+      ${rankedBars(Object.entries(ovByPic).sort((a, b) => b[1] - a[1]).slice(0, 10)
+                            .map(([k2, v]) => ({ k: k2, v })), v => n0(v) + ' cases', { rank: true, heat: true })}
       <div class="note-text" style="margin-top:10px">
         ${agg.overdue} open cases are already past their RCA due date, carrying <b>${money(agg.overdueLoss)}</b> of unresolved
         loss. Tracking closes the loop the case book asks for: alert → cause → action → owner → date → evidence of closure.
@@ -5411,6 +5944,14 @@
                 document.getElementById('login-username').value = saved;
                 document.getElementById('login-remember').checked = true;
             }
+        })();
+        /* the brand panel quotes the real volumes this build runs on */
+        (() => {
+            const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            set('ls-inc', n0(INC.length));
+            set('ls-asset', String(TAGS.length));
+            set('ls-samp', n0(TAGS.length * A[TAGS[0]].ser.amp.length));
+            set('ls-rca', String(Object.keys(KB).length));
         })();
 
         /* ---------- clock ---------- */
