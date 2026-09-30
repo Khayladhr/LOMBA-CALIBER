@@ -117,12 +117,26 @@
     }
 
     .brand {
+        padding: 2px 4px 18px;
+        border-bottom: 1px solid var(--sidebar-border);
+        margin-bottom: 14px
+    }
+
+    .brand-plate {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 4px 8px 20px 8px;
-        border-bottom: 1px solid var(--sidebar-border);
-        margin-bottom: 16px
+        justify-content: center;
+        background: #fff;
+        border-radius: 12px;
+        padding: 11px 14px;
+        box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .55)
+    }
+
+    .brand-plate img {
+        display: block;
+        width: 100%;
+        max-width: 168px;
+        height: auto
     }
 
     .brand-mark {
@@ -148,9 +162,13 @@
     }
 
     .brand-sub {
-        font-size: 10.5px;
+        font-size: 9.5px;
         color: var(--sidebar-text-dim);
-        margin-top: 1px
+        margin-top: 11px;
+        text-align: center;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        font-weight: 700
     }
 
     .nav-section-label {
@@ -3402,9 +3420,30 @@
             gap: 6px
         }
 
-        .sidebar .brand,
+        /* the plant's mark stays visible on a phone, just small and pinned to the strip */
         .sidebar .nav-section-label,
         .sidebar-footer {
+            display: none
+        }
+
+        .sidebar .brand {
+            padding: 0 10px 0 0;
+            margin: 0 4px 0 0;
+            border-bottom: 0;
+            border-right: 1px solid var(--sidebar-border);
+            flex: 0 0 auto
+        }
+
+        .sidebar .brand-plate {
+            padding: 5px 8px;
+            border-radius: 9px
+        }
+
+        .sidebar .brand-plate img {
+            max-width: 96px
+        }
+
+        .sidebar .brand-sub {
             display: none
         }
 
@@ -3990,6 +4029,23 @@
         }
     }
 
+    .lg-avg {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--critical);
+        white-space: nowrap
+    }
+
+    .lg-avg::before {
+        content: '';
+        width: 18px;
+        border-top: 2px dashed var(--critical);
+        opacity: .8
+    }
+
     .dchain {
         padding: 2px 0
     }
@@ -4537,11 +4593,8 @@
         <!-- ---------- SIDEBAR ---------- -->
         <nav class="sidebar">
             <div class="brand">
-                <div class="brand-mark">I</div>
-                <div>
-                    <div class="brand-name">Intelix</div>
-                    <div class="brand-sub">Manufacturing Intelligence</div>
-                </div>
+                <span class="brand-plate"><img id="brand-logo" alt="Chandra Asri"></span>
+                <div class="brand-sub">Manufacturing Intelligence</div>
             </div>
 
             <div class="nav-section-label">Monitor</div>
@@ -6120,6 +6173,12 @@
         toastT = setTimeout(() => el.classList.remove('show'), 2600);
     }
 
+    /* ---------- sidebar brand: the plant's own mark, reusing the login asset ---------- */
+    (function brandFromLogin() {
+        const src = document.querySelector('.login-logo'), dst = document.getElementById('brand-logo');
+        if (src && dst) dst.src = src.getAttribute('src');
+    })();
+
     /* ---------- live clock (real wall time, Asia/Jakarta) ---------- */
     function updateClock() {
         const now = new Date();
@@ -6409,8 +6468,7 @@
             avg = ms.reduce((t, m) => t + m.v, 0) / n;
         const grid = [0, .5, 1].map(f => `<line x1="${L}" x2="${W - R}" y1="${y(mx * f)}" y2="${y(mx * f)}" stroke="#E4ECF8"/><text x="${L - 8}" y="${y(mx * f) + 4}" text-anchor="end" font-size="12" fill="#4E5578">${moneyBig(mx * f)}</text>`).join('');
         return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Actual loss by month">${grid}
-  <line x1="${L}" x2="${W - R}" y1="${y(avg)}" y2="${y(avg)}" stroke="#C62828" stroke-dasharray="5 4" opacity=".6"/>
-  <text x="${L + 6}" y="${y(avg) - 7}" text-anchor="start" font-size="12" font-weight="700" fill="#C62828">Average ${moneyBig(avg)}</text>
+  <line x1="${L}" x2="${W - R}" y1="${y(avg)}" y2="${y(avg)}" stroke="#C62828" stroke-dasharray="5 4" opacity=".6"><title>Average ${moneyBig(avg)}</title></line>
   <polyline points="${ms.map((m, i) => x(i) + ',' + y(m.v)).join(' ')}" fill="none" stroke="#1C5CAB" stroke-width="3" stroke-linejoin="round"/>
   ${ms.map((m, i) => `<circle cx="${x(i)}" cy="${y(m.v)}" r="${i === n - 1 ? 6 : 3.5}" fill="${i === n - 1 ? '#C62828' : '#1C5CAB'}"><title>${fmtMonth(m.k)}: ${money(m.v)}</title></circle>`).join('')}
   ${ms.map((m, i) => i % 2 === (n - 1) % 2 ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="12" fill="#4E5578">${MONTHS[+m.k.slice(5, 7) - 1]}</text>` : '').join('')}</svg>`;
@@ -6423,7 +6481,7 @@
         const tot = segs.reduce((t, g) => t + g.n, 0) || 1, r = 54, c = 2 * Math.PI * r; let off = 0;
         const arcs = segs.map(g => {
             const l = c * g.n / tot,
-            e = `<circle cx="70" cy="70" r="${r}" fill="none" stroke="${g.c}" stroke-width="22" stroke-dasharray="${l} ${c - l}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"><title>${esc(g.k)}: ${g.n}</title></circle>`;
+                e = `<circle cx="70" cy="70" r="${r}" fill="none" stroke="${g.c}" stroke-width="22" stroke-dasharray="${l} ${c - l}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"><title>${esc(g.k)}: ${g.n}</title></circle>`;
             off += l; return e;
         }).join('');
         return `<svg viewBox="0 0 140 140" width="160" height="160" role="img" aria-label="Cases by stage">${arcs}<text x="70" y="72" text-anchor="middle" font-size="26" font-weight="800" fill="#0C0D45">${big}</text><text x="70" y="90" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5578">${small}</text></svg>`;
@@ -6608,7 +6666,8 @@
     </div>
     <div class="ov-h-right">
       <div class="panel-head"><div class="panel-title">Monthly Loss</div>
-        <select class="ov-sel" id="ov-period" aria-label="Period" onchange="S.ovRange=+this.value;refresh()">${[3, 6, 12].map(v => `<option value="${v}"${S.ovRange === v ? ' selected' : ''}>Last ${v} months</option>`).join('')}</select></div>
+        <div class="pnl-ctl"><span class="lg-avg">Average ${moneyBig(ms.reduce((t, m) => t + m.v, 0) / (ms.length || 1))}</span>
+        <select class="ov-sel" id="ov-period" aria-label="Period" onchange="S.ovRange=+this.value;refresh()">${[3, 6, 12].map(v => `<option value="${v}"${S.ovRange === v ? ' selected' : ''}>Last ${v} months</option>`).join('')}</select></div></div>
       ${lineChart(ms)}
     </div>
   </div>
