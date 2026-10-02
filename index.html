@@ -4132,10 +4132,12 @@
         color: var(--text-dim)
     }
 
+    /* a dash in a dashed box: 'not involved' is a stated answer, not a blank cell */
     .raci.rn {
         background: transparent;
+        border: 1px dashed var(--border);
         color: var(--text-faint);
-        opacity: .4
+        font-weight: 700
     }
 
     .fx-d b {
@@ -4178,6 +4180,52 @@
         margin: 2px 0 16px;
         padding: 16px 0 0;
         border-top: 1px solid var(--border)
+    }
+
+    /* the definitions are a page of text: they live behind a button, not on the panel */
+    .pill-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: inherit;
+        font-size: 11.5px;
+        font-weight: 800;
+        color: var(--accent-deep);
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 7px 8px 7px 15px;
+        cursor: pointer;
+        transition: background .15s, color .15s, border-color .15s;
+        white-space: nowrap
+    }
+
+    .pill-btn:hover {
+        border-color: var(--accent)
+    }
+
+    .pill-btn i {
+        display: grid;
+        place-items: center;
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: var(--panel-2);
+        font-style: normal;
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 800
+    }
+
+    .pill-btn.on {
+        background: var(--accent-deep);
+        color: #fff;
+        border-color: var(--accent-deep)
+    }
+
+    .pill-btn.on i {
+        background: rgba(255, 255, 255, .22);
+        color: #fff
     }
 
     /* the number, its target and its verdict read as one line before any detail */
@@ -6956,8 +7004,8 @@
         const rows = diag.map((f, i) => {
             const cells = core.map(c => {
                 const m = (KPI_RACI[c.id] || [])[i] || '';
-                const lab = m === 'A' ? 'Accountable' : m === 'C' ? 'Contributes' : 'Not on this step';
-                return `<span class="r"><i class="raci ${m === 'A' ? 'ra' : m === 'C' ? 'rc' : 'rn'}" title="${esc(c.name)} — ${lab}">${m || '·'}</i></span>`;
+                const lab = m === 'A' ? 'Accountable' : m === 'C' ? 'Contributes' : 'Not involved in this step';
+                return `<span class="r"><i class="raci ${m === 'A' ? 'ra' : m === 'C' ? 'rc' : 'rn'}" title="${esc(c.name)} — ${lab}">${m || '\u2013'}</i></span>`;
             }).join('');
             const open = S.fnOpen && S.team === f.fn;
             /* the detail opens directly under the row that was pressed, not at the
@@ -7069,8 +7117,8 @@
   <div class="panel" style="margin-bottom:16px" id="fn-map">
     <div class="panel-head"><div class="panel-title">KPI Mapping Across Functions</div>
       <div class="pnl-ctl">
-        <span class="raci-lg"><i class="raci ra">A</i>Accountable<i class="raci rc">C</i>Contributes<i class="raci rn">·</i>Not involved</span>
-        <button class="link" data-defs="1">${S.kpiDefs ? 'Hide definitions' : 'KPI definitions'}</button></div></div>
+        <span class="raci-lg"><i class="raci ra">A</i>Accountable<i class="raci rc">C</i>Contributes<i class="raci rn">\u2013</i>Not involved</span>
+        <button class="pill-btn${S.kpiDefs ? ' on' : ''}" data-defs="1">KPI definitions<i>${S.kpiDefs ? '\u2212' : '+'}</i></button></div></div>
     ${fnMatrix(LK)}
   </div>
 
